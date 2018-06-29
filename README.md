@@ -12,7 +12,16 @@ It attaches itself and uses `oninput` to keep track of changes
 
 ## Usage
 
-Usage is fairly straight forward, attach a time:format to the directive, and set the value to the function you want to call
+First make sure we tell vue to use it
+
+```js
+import Vue from 'vue'
+import vueDebounce from 'vue-debounce'
+
+Vue.use(vueDebounce)
+```
+
+Then attach a time:format to the directive, and set the value to the function you want to call and attach it to your input element
 
 Example:
 
