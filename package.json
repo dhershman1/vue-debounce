@@ -7,7 +7,7 @@
     "test": "tape -r esm tests/test.js | tap-spec",
     "prepack": "npm run lint && npm run build",
     "build": "rollup -c",
-    "lint": "standard /*.js"
+    "lint": "standard src/*.js"
   },
   "standard": {
     "ignore": [

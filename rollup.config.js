@@ -3,7 +3,7 @@ import buble from 'rollup-plugin-buble'
 import { uglify } from 'rollup-plugin-uglify'
 
 export default {
-  input: './index.js',
+  input: './src/index.js',
   plugins: [commonjs(), buble(), uglify()],
   output: {
     format: 'umd',

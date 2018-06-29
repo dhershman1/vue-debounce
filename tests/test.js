@@ -1,5 +1,5 @@
 import test from 'tape'
-import debounce from '../debounce'
+import debounce from '../src/debounce'
 
 test('Handles defaults', t => {
   const runner = debounce((val) => {
