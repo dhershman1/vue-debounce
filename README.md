@@ -46,3 +46,22 @@ You can pass the time in multiple formats:
 <!-- For what I hope are rare cases? -->
 <input v-debounce:1min="myFunc" type="text" />
 ```
+
+The value of the input is passed along to your function
+
+A full example:
+
+```vue
+<template>
+  <input v-debounce:400ms="myFn" type="text" />
+</template>
+<script>
+export default {
+  methods: {
+    myFn(val) {
+      console.log(val) // => The value of the input
+    }
+  }
+}
+</script>
+```
