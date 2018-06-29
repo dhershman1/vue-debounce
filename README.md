@@ -12,9 +12,7 @@ It attaches itself and uses `oninput` to keep track of changes
 
 ## Usage
 
-Usage is fairly straight forward, you'll be passing an object to the directive to use.
-
-This object should contain the function you want called whent he timer finishes, and how long you want it to wait before calling that function.
+Usage is fairly straight forward, attach a time:format to the directive, and set the value to the function you want to call
 
 Example:
 
