@@ -8,7 +8,7 @@ It attaches itself and uses `oninput` to keep track of changes
 ## Features
 
 - Dynamic debouncing for input based requests
-- Easy to use, just slap it into your vue instance and attach it to your inputs/components
+- Easy to use, just place it into your vue instance and attach it to your inputs/components
 - Self regulating no need to worry about it, set it and forget it
 - Multiple time formats supported (miliseconds, seconds, and minutes)
 
