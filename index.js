@@ -5,10 +5,10 @@ export default {
   config: {},
   install(Vue) {
     Vue.directive('debounce', {
-      bind(el) {
+      bind(el, { value, arg }) {
         el.oninput = debounce(({ target }) => {
-          value.cb(target.value)
-        }, value.wait)
+          value(target.value)
+        }, arg)
       }
     })
   }

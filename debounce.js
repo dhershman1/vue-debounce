@@ -17,14 +17,14 @@ export default (fn, wait = '300ms') => {
     const later = () => {
       timeout = null
 
-      fn.apply(this, args)
+      fn(...args)
     }
 
     clearTimeout(timeout)
     timeout = setTimeout(later, timer)
 
     if (!timeout) {
-      fn.apply(this, args)
+      fn(...args)
     }
   }
 }
