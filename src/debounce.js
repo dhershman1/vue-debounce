@@ -10,12 +10,12 @@ const convertTime = time => {
 }
 
 export default (fn, wait = '300ms') => {
-  let timeout = null
+  let timeout = false
   const timer = convertTime(wait)
 
   return (...args) => {
     const later = () => {
-      timeout = null
+      timeout = false
 
       fn(...args)
     }
