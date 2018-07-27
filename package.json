@@ -1,7 +1,7 @@
 {
   "name": "vue-debounce",
-  "version": "0.1.2",
-  "description": "a simple vue directive for debounce",
+  "version": "0.2.0",
+  "description": "A simple vue directive for debounce",
   "main": "dist/vue-debounce.min.js",
   "scripts": {
     "test": "tape -r esm tests/test.js | tap-spec",
