@@ -20,3 +20,13 @@ test('Handles sepcific time', t => {
 
   runner('testing')
 })
+
+test('Handles seconds', t => {
+  const runner = debounce((val) => {
+    t.ok(val)
+    t.same(val, 'testing')
+    t.end()
+  }, '1s')
+
+  runner('testing')
+})

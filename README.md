@@ -1,7 +1,7 @@
 # vue-debounce
 A simple to use directive for debounce solutions
 
-It attaches itself and uses `oninput` to keep track of changes
+It attaches itself and uses `onkeyup` to keep track of changes
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
@@ -10,7 +10,18 @@ It attaches itself and uses `oninput` to keep track of changes
 - Dynamic debouncing for input based requests
 - Easy to use, just place it into your vue instance and attach it to your inputs/components
 - Self regulating no need to worry about it, set it and forget it
-- Multiple time formats supported (miliseconds, seconds, and minutes)
+- Multiple time formats supported (miliseconds and seconds)
+- Enter key support automatically fire the desired function when the user hits the enter key in the desired input (Can also be disabled)
+
+## Modifiers
+
+- `lock` : Used to lock the debounce and prevent the enter key from triggering the function when pressed
+  - Example: `v-debounce:400ms.lock="cb"`
+- `unlock` : Used to unlock the enter key on a debounced input, useful if you want to use the `lock` option and only want a few debounced inputs unlocked
+
+## Options
+
+- `lock` : `Boolean` : Default: `false` - This works the same way as the modifier does, however using the option will lock _ALL_ of the debounced inputs within that vue instance, where as using the modifer only locks the one it's attached to
 
 ## Usage
 
@@ -21,6 +32,11 @@ import Vue from 'vue'
 import vueDebounce from 'vue-debounce'
 
 Vue.use(vueDebounce)
+
+// Or if you want to pass in the lock option
+Vue.use(vueDebounce, {
+  lock: true
+})
 ```
 
 Then attach a time:format to the directive, and set the value to the function you want to call and attach it to your input element
@@ -42,9 +58,12 @@ You can pass the time in multiple formats:
 <!-- Seconds format is supported -->
 <input v-debounce:1s="myFunc" type="text" />
 
-<!-- Minutes format is also supported -->
-<!-- For what I hope are rare cases? -->
-<input v-debounce:1min="myFunc" type="text" />
+<!-- Using Modifiers locking the input so the enter key isn't registered -->
+<input v-debounce:1s.lock="myFunc" type="text" />
+
+<!-- Using Modifiers unlocking the input so the enter key is registered -->
+<!-- If you've set lock to true as an option when adding this module -->
+<input v-debounce:1s.unlock="myFunc" type="text" />
 ```
 
 The value of the input is passed along to your function

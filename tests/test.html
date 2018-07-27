@@ -9,6 +9,9 @@
   <body>
     <div id="app">
       <input type="text" v-debounce:1s="testFn" />
+      <br />
+      <br />
+      <input type="text" v-debounce:1s.lock="testFn" />
     </div>
 
     <script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
