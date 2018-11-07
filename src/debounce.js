@@ -36,23 +36,3 @@ const debounce = (fn, wait = '300ms') => {
 }
 
 export default debounce
-
-// export default (fn, wait = '300ms') => {
-//   let timeout = false
-//   const timer = convertTime(wait)
-
-//   return (...args) => {
-//     const later = () => {
-//       timeout = false
-
-//       fn(...args)
-//     }
-
-//     clearTimeout(timeout)
-//     timeout = setTimeout(later, timer)
-
-//     if (!timeout) {
-//       fn(...args)
-//     }
-//   }
-// }
