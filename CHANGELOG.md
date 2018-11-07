@@ -1,5 +1,12 @@
 # Change Log
 
+## v1.0.0
+
+- Some small tweaks to code nothing breaking
+- Removed the long deleted `min` from the regex check
+- Removed unused code
+- Mainly to just get it to v1.0.0 no breaking changes added
+
 ## v0.2.0
 
 - Slight Tweaks to optimization
