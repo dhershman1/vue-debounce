@@ -1,5 +1,5 @@
 const convertTime = time => {
-  const [amt, t = 'ms'] = String(time).split(/(ms|s|min)/i)
+  const [amt, t = 'ms'] = String(time).split(/(ms|s)/i)
   const types = {
     ms: 1,
     s: 1000
