@@ -1,5 +1,12 @@
 # Change Log
 
+## v1.1.0
+
+- Tweaked the Syntax of the debounce function
+- Added additional tests
+- Updated dependencies
+- Added ability to set the event to listen to in options
+
 ## v1.0.0
 
 - Some small tweaks to code nothing breaking

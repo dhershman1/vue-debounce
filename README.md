@@ -1,7 +1,12 @@
 # vue-debounce
+
+[![npm](https://img.shields.io/npm/v/vue-debounce.svg?style=flat-square)](https://www.npmjs.com/package/vue-debounce)
+[![David](https://img.shields.io/david/dhershman1/vue-debounce.svg?style=flat-square)](https://david-dm.org/dhershman1/vue-debounce)
+[![David](https://img.shields.io/david/dev/dhershman1/vue-debounce.svg?style=flat-square)](https://david-dm.org/dhershman1/vue-debounce?type=dev)
+
 A simple to use directive for debounce solutions
 
-It attaches itself and uses `onkeyup` to keep track of changes
+It attaches itself to an event for actions
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
@@ -22,6 +27,8 @@ It attaches itself and uses `onkeyup` to keep track of changes
 ## Options
 
 - `lock` : `Boolean` : Default: `false` - This works the same way as the modifier does, however using the option will lock _ALL_ of the debounced inputs within that vue instance, where as using the modifer only locks the one it's attached to
+- `listenTo` : `String` : Default: `onkeyup` - Allows you to set a custom event attached to an element like `oninput` for example
+  - It's important to not that these are GLobal Event Handlers directly attached to the HTML element: https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers
 
 ## Usage
 
@@ -36,6 +43,11 @@ Vue.use(vueDebounce)
 // Or if you want to pass in the lock option
 Vue.use(vueDebounce, {
   lock: true
+})
+
+// Setting a different event to listen to
+Vue.use(vueDebounce, {
+  listenTo: 'oninput'
 })
 ```
 
