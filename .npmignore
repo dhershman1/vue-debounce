@@ -1,2 +1,4 @@
 example.html
 tests/
+.DS_Store
+rollup.config.js
