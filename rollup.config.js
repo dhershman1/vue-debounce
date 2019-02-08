@@ -4,7 +4,11 @@ import { uglify } from 'rollup-plugin-uglify'
 
 export default {
   input: './src/index.js',
-  plugins: [commonjs(), buble(), uglify()],
+  plugins: [
+    commonjs(),
+    buble(),
+    uglify()
+  ],
   output: {
     format: 'umd',
     name: 'vueDebounce',
