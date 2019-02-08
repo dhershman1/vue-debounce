@@ -1,4 +1,4 @@
-const convertTime = time => {
+function convertTime (time) {
   const [amt, t = 'ms'] = String(time).split(/(ms|s)/i)
   const types = {
     ms: 1,
@@ -8,7 +8,7 @@ const convertTime = time => {
   return Number(amt) * types[t]
 }
 
-const debounce = (fn, wait = '300ms') => {
+function debounce (fn, wait = '300ms') {
   let timeout = null
   const timer = convertTime(wait)
 
