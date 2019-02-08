@@ -8,10 +8,12 @@
 
   <body>
     <div id="app">
-      <input type="text" v-debounce:1s="testFn" />
+      <label>Curried Test (1s)</label>
+      <input type="text" v-debounce:1s="testFn('testing')" />
       <br />
       <br />
-      <input type="text" v-debounce:1s.lock="testFn" />
+      <label>Curried Lock Test (700ms)</label>
+      <input type="text" v-debounce:700ms.lock="setterTst('I Set')" />
     </div>
 
     <script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
@@ -22,7 +24,16 @@
         el: '#app',
         methods: {
           testFn(val) {
-            console.log('Caputured cb!', val)
+            return cbVal => {
+              console.log('Caputured cb!', cbVal)
+              console.log('param', val)
+            }
+          },
+          setterTst (a) {
+            return b => {
+              console.log(a)
+              console.log(b)
+            }
           }
         }
       })
