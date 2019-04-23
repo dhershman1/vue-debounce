@@ -27,7 +27,7 @@ It attaches itself to an event for actions
 ## Options
 
 - `lock` : `Boolean` : Default: `false` - This works the same way as the modifier does, however using the option will lock _ALL_ of the debounced inputs within that vue instance, where as using the modifer only locks the one it's attached to
-- `listenTo` : `String` : Default: `onkeyup` - Allows you to set a custom event attached to an element like `oninput` for example
+- `listenTo` : `String|Array` : Default: `onkeyup` - Allows you to set a custom event attached to an element like `oninput` for example
   - It's important to not that these are GLobal Event Handlers directly attached to the HTML element: https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers
 
 ## Usage
@@ -48,6 +48,11 @@ Vue.use(vueDebounce, {
 // Setting a different event to listen to
 Vue.use(vueDebounce, {
   listenTo: 'oninput'
+})
+
+// Listening to multiple events
+Vue.use(vueDebounce, {
+  listenTo: ['oninput', 'onkeyup']
 })
 ```
 
