@@ -1,7 +1,17 @@
 import debounce from './debounce'
 
-function toLower (str) {
-  return str.toLowerCase()
+// Figures out the event we are using with the bound element
+function figureOutEvent (attrs, listenTo) {
+  const { value = false } = attrs.getNamedItem('debounce-events') || {}
+  const isArr = Array.isArray(listenTo)
+  const toLowerMap = list => list.map(x => x.toLowerCase())
+
+  // If they set an events attribute that overwrites everything
+  if (value) {
+    return toLowerMap(value.split(','))
+  }
+
+  return isArr ? toLowerMap(listenTo) : [listenTo]
 }
 
 export default {
@@ -9,15 +19,10 @@ export default {
   install (Vue, { lock, listenTo = 'onkeyup' } = {}) {
     Vue.directive('debounce', {
       bind (el, { value, arg, modifiers }) {
-        const isArr = Array.isArray(listenTo)
-        const listener = isArr ? listenTo.map(toLower) : listenTo.toLowerCase()
+        const listener = figureOutEvent(el.attributes, listenTo)
         const fn = debounce(target => {
           value(target.value)
         }, arg)
-
-        if (!isArr && typeof el[listener] === 'undefined') {
-          throw new Error(`Event Listener ${listener} does not exist`)
-        }
 
         function handler ({ key, target }) {
           const isUnlocked = (!modifiers.lock && !lock) || modifiers.unlock
@@ -32,16 +37,12 @@ export default {
           }
         }
 
-        if (isArr) {
-          listener.forEach(e => {
-            if (typeof el[e] === 'undefined') {
-              throw new Error(`Event Listener ${e} does not exist`)
-            }
-            el[e] = handler
-          })
-        } else {
-          el[listener] = handler
-        }
+        listener.forEach(e => {
+          if (typeof el[e] === 'undefined') {
+            throw new Error(`Event Listener ${e} does not exist`)
+          }
+          el[e] = handler
+        })
       }
     })
   }

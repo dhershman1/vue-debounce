@@ -6,6 +6,7 @@
   - Sadly with out vue directives work, I can't make this a per input thing
 - Removed deprecated `keyCode` in favor of just `key`
 - `listenTo` is no longer case sensitive
+- Added ability to listen for the `debounce-events` attribute
 
 ## v1.1.0
 
