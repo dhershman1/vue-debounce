@@ -17,6 +17,7 @@ It attaches itself to an event for actions
 - Self regulating no need to worry about it, set it and forget it
 - Multiple time formats supported (miliseconds and seconds)
 - Enter key support automatically fire the desired function when the user hits the enter key in the desired input (Can also be disabled)
+- Supports the ability to have multiple event listeners, and specify events at the element level
 
 ## Modifiers
 
@@ -27,7 +28,7 @@ It attaches itself to an event for actions
 ## Options
 
 - `lock` : `Boolean` : Default: `false` - This works the same way as the modifier does, however using the option will lock _ALL_ of the debounced inputs within that vue instance, where as using the modifer only locks the one it's attached to
-- `listenTo` : `String` : Default: `onkeyup` - Allows you to set a custom event attached to an element like `oninput` for example
+- `listenTo` : `String|Array` : Default: `onkeyup` - Allows you to set a custom event attached to an element like `oninput` for example
   - It's important to not that these are GLobal Event Handlers directly attached to the HTML element: https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers
 
 ## Usage
@@ -48,6 +49,11 @@ Vue.use(vueDebounce, {
 // Setting a different event to listen to
 Vue.use(vueDebounce, {
   listenTo: 'oninput'
+})
+
+// Listening to multiple events
+Vue.use(vueDebounce, {
+  listenTo: ['oninput', 'onkeyup']
 })
 ```
 
@@ -80,11 +86,26 @@ You can pass the time in multiple formats:
 
 The value of the input is passed along to your function
 
+## Overwriting Events
+
+As of Version 1.2.0 you can assign specific event listeners to specific inputs. Doing so overwrites **ANY** of the listed events set with `listenTo`
+
+Example:
+```vue
+// This can accept an array or a single string when using the bind `:` syntax
+<input v-debounce:1s="myFunc" :debounce-events="['onclick', 'onkeydown']">
+<input v-debounce:1s="myFunc" :debounce-events="'onclick'">
+
+// You can also just use it as an attribute, though if passing multiple events binding it is preferred
+<input v-debounce:1s="myfunc" debounce-events="onclick">
+```
+
 A full example:
 
 ```vue
 <template>
   <input v-debounce:400ms="myFn" type="text" />
+  <input v-debounce:400ms="myFn" debounce-events="onclick" type="text" />
 </template>
 <script>
 export default {

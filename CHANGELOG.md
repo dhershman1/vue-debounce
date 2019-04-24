@@ -1,5 +1,12 @@
 # Change Log
 
+## v1.2.0
+
+- Added ability to send an array of events to have the elments listen to
+- Removed deprecated `keyCode` in favor of just `key`
+- `listenTo` is no longer case sensitive
+- Added ability to listen for the `debounce-events` attribute
+
 ## v1.1.0
 
 - Tweaked the Syntax of the debounce function
