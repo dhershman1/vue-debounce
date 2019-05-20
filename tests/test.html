@@ -8,6 +8,9 @@
 
   <body>
     <div id="app">
+      <label>Test Defaults</label>
+      <input type="text" v-debounce="foo" />
+      <br />
       <label>Curried Test (1s)</label>
       <input type="text" debounce-events="onclick,onkeydown" v-debounce:1s="testFn('testing')" />
       <br />
@@ -19,10 +22,14 @@
     <script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
     <script src="../dist/vue-debounce.min.js"></script>
     <script>
-      Vue.use(vueDebounce)
+      Vue.use(vueDebounce, { defaultTime: '2s' })
       new Vue({
         el: '#app',
         methods: {
+          foo (val) {
+            console.log('FOOBAR')
+            console.log(val)
+          },
           testFn(val) {
             return cbVal => {
               console.log('Caputured cb!', cbVal)

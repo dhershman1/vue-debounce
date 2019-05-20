@@ -1,5 +1,9 @@
 # Change Log
 
+## v1.3.0
+
+- Added ability to set default timeout within the options of the plugin
+
 ## v1.2.0
 
 - Added ability to send an array of events to have the elments listen to

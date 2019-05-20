@@ -16,13 +16,13 @@ function figureOutEvent (attrs, listenTo) {
 
 export default {
   name: 'debounce',
-  install (Vue, { lock, listenTo = 'onkeyup' } = {}) {
+  install (Vue, { lock, listenTo = 'onkeyup', defaultTime = '300ms' } = {}) {
     Vue.directive('debounce', {
       bind (el, { value, arg, modifiers }) {
         const listener = figureOutEvent(el.attributes, listenTo)
         const fn = debounce(target => {
           value(target.value)
-        }, arg)
+        }, arg || defaultTime)
 
         function handler ({ key, target }) {
           const isUnlocked = (!modifiers.lock && !lock) || modifiers.unlock
