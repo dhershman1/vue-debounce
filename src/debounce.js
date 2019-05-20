@@ -8,7 +8,7 @@ function convertTime (time) {
   return Number(amt) * types[t]
 }
 
-function debounce (fn, wait = '300ms') {
+function debounce (fn, wait) {
   let timeout = null
   const timer = convertTime(wait)
 

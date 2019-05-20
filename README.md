@@ -30,6 +30,7 @@ It attaches itself to an event for actions
 - `lock` : `Boolean` : Default: `false` - This works the same way as the modifier does, however using the option will lock _ALL_ of the debounced inputs within that vue instance, where as using the modifer only locks the one it's attached to
 - `listenTo` : `String|Array` : Default: `onkeyup` - Allows you to set a custom event attached to an element like `oninput` for example
   - It's important to not that these are GLobal Event Handlers directly attached to the HTML element: https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers
+- `defaultTime` : `String` : Default: `'300ms'` - Set the default timer for debounce directives that you don't give a time to
 
 ## Usage
 
@@ -55,6 +56,11 @@ Vue.use(vueDebounce, {
 Vue.use(vueDebounce, {
   listenTo: ['oninput', 'onkeyup']
 })
+
+// Setting a default timer This is set to '300ms' if not specified
+Vue.use(vueDebounce, {
+  defaultTime: '700ms'
+})
 ```
 
 Then attach a time:format to the directive, and set the value to the function you want to call and attach it to your input element
@@ -65,7 +71,7 @@ Example:
 <input v-debounce:300ms="myFunc" type="text" />
 ```
 
-If no wait timer is passed in, then the directive will default to 300ms.
+If no wait timer is passed in, then the directive will default to whatever you set `defaultTime` to, **OR** `300ms` if that isn't set.
 
 You can pass the time in multiple formats:
 
