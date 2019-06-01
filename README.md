@@ -32,6 +32,11 @@ It attaches itself to an event for actions
   - It's important to not that these are GLobal Event Handlers directly attached to the HTML element: https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers
 - `defaultTime` : `String` : Default: `'300ms'` - Set the default timer for debounce directives that you don't give a time to
 
+## Installation
+```
+npm i vue-debounce
+```
+
 ## Usage
 
 First make sure we tell vue to use it
