@@ -3,7 +3,6 @@ import debounce from './debounce'
 // Figures out the event we are using with the bound element
 function figureOutEvent (attrs, listenTo) {
   const { value = false } = attrs.getNamedItem('debounce-events') || {}
-  const isArr = Array.isArray(listenTo)
   const toLowerMap = list => list.map(x => x.toLowerCase())
 
   // If they set an events attribute that overwrites everything
@@ -11,12 +10,12 @@ function figureOutEvent (attrs, listenTo) {
     return toLowerMap(value.split(','))
   }
 
-  return isArr ? toLowerMap(listenTo) : [listenTo]
+  return Array.isArray(listenTo) ? toLowerMap(listenTo) : [listenTo]
 }
 
 export default {
   name: 'debounce',
-  install (Vue, { lock, listenTo = 'onkeyup', defaultTime = '300ms' } = {}) {
+  install (Vue, { lock, listenTo = 'keyup', defaultTime = '300ms' } = {}) {
     Vue.directive('debounce', {
       bind (el, { value, arg, modifiers }) {
         const listener = figureOutEvent(el.attributes, listenTo)
@@ -38,10 +37,7 @@ export default {
         }
 
         listener.forEach(e => {
-          if (typeof el[e] === 'undefined') {
-            throw new Error(`Event Listener ${e} does not exist`)
-          }
-          el[e] = handler
+          el.addEventListener(e, handler)
         })
       }
     })
