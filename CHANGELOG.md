@@ -1,5 +1,11 @@
 # Change Log
 
+## v2.0.0
+
+### BREAKING CHANGES
+
+- Now using the `addEventListener` method attached to the given el to properly set the event rather than overriding the native callback
+
 ## v1.3.0
 
 - Added ability to set default timeout within the options of the plugin
