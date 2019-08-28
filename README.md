@@ -1,6 +1,7 @@
 # vue-debounce
 
 [![npm](https://img.shields.io/npm/v/vue-debounce.svg?style=flat-square)](https://www.npmjs.com/package/vue-debounce)
+[![Downloads](https://img.shields.io/npm/dm/vue-debounce.svg?style=flat-square)](https://www.npmjs.com/package/vue-debounce)
 [![David](https://img.shields.io/david/dhershman1/vue-debounce.svg?style=flat-square)](https://david-dm.org/dhershman1/vue-debounce)
 [![David](https://img.shields.io/david/dev/dhershman1/vue-debounce.svg?style=flat-square)](https://david-dm.org/dhershman1/vue-debounce?type=dev)
 
