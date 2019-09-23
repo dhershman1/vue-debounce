@@ -1,5 +1,12 @@
 # Change Log
 
+## v2.1.0
+
+### New
+
+- Added instructions on how to just use the debounce api
+- Added ability to send the debounce function just a number and it will get treated as miliseconds
+
 ## v2.0.0
 
 ### BREAKING CHANGES

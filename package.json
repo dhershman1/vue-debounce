@@ -1,6 +1,6 @@
 {
   "name": "vue-debounce",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A simple vue directive for debounce",
   "main": "dist/vue-debounce.min.js",
   "scripts": {
@@ -32,12 +32,12 @@
   },
   "homepage": "https://github.com/dhershman1/vue-debounce#readme",
   "devDependencies": {
-    "chokidar": "3.0.2",
+    "chokidar": "3.1.1",
     "esm": "3.2.25",
-    "rollup": "1.20.3",
+    "rollup": "1.21.4",
     "rollup-plugin-buble": "0.19.8",
-    "rollup-plugin-uglify": "6.0.2",
-    "standard": "14.0.2",
+    "rollup-plugin-uglify": "6.0.3",
+    "standard": "14.3.1",
     "tap-spec": "5.0.0",
     "tape": "4.11.0"
   },
