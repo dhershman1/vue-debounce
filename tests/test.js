@@ -11,6 +11,16 @@ test('Handles defaults', t => {
   runner('testing')
 })
 
+test('Handles number type', t => {
+  const runner = debounce(val => {
+    t.ok(val)
+    t.same(val, 'testing')
+    t.end()
+  }, 400)
+
+  runner('testing')
+})
+
 test('Handles no format set', t => {
   const runner = debounce(val => {
     t.ok(val)
