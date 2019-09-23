@@ -11,6 +11,15 @@ It attaches itself to an event for actions
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
+## Content
+
+- [Features](#features)
+- [Modifiers](#modifiers)
+- [Options](#options)
+- [Usage](#usage)
+- [Overwriting Events](#overwriting-events)
+- [Use Just Debounce](#using-just-debounce)
+
 ## Features
 
 - Dynamic debouncing for input based requests
