@@ -124,3 +124,23 @@ export default {
 }
 </script>
 ```
+
+## Using Just Debounce
+
+With Vue-debounce you're also able to just use the debouncing function.
+
+Simply require the debounce file from src or directly from the dist
+
+```js
+import debounce from 'vue-debounce/src/debounce'
+// This is the compiled/optimized version
+import debounce from 'vue-debounce/dist/debounce.min.js'
+```
+
+And then you can use it as a function like so:
+
+```js
+debounce(() => console.log('normal format'), '400ms')
+// Or
+debounce(() => console.log('just a number!'), 400)
+```
