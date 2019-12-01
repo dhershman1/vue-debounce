@@ -14,7 +14,6 @@ function figureOutEvent (attrs, listenTo) {
 }
 
 export default {
-  name: 'debounce',
   install (Vue, { lock, listenTo = 'keyup', defaultTime = '300ms' } = {}) {
     Vue.directive('debounce', {
       bind (el, { value, arg, modifiers }) {
