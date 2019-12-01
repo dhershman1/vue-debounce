@@ -61,3 +61,6 @@ typings/
 .next
 
 exp.js
+
+# IDE #
+.idea/
