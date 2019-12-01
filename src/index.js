@@ -13,6 +13,8 @@ function figureOutEvent (attrs, listenTo) {
   return Array.isArray(listenTo) ? toLowerMap(listenTo) : [listenTo]
 }
 
+export { debounce }
+
 export default {
   install (Vue, { lock, listenTo = 'keyup', defaultTime = '300ms' } = {}) {
     Vue.directive('debounce', {

@@ -143,12 +143,10 @@ export default {
 
 With Vue-debounce you're also able to just use the debouncing function.
 
-Simply require the debounce file from src or directly from the dist
+Simply require the debounce file.
 
 ```js
-import debounce from 'vue-debounce/src/debounce'
-// This is the compiled/optimized version
-import debounce from 'vue-debounce/dist/debounce.min.js'
+import { debounce } from 'vue-debounce'
 ```
 
 And then you can use it as a function like so:
@@ -158,3 +156,21 @@ debounce(() => console.log('normal format'), '400ms')
 // Or
 debounce(() => console.log('just a number!'), 400)
 ```
+
+## Typescript Support
+While this project is not written in typescript, we do define types in the `types` directory. Unfortunately the way Vue is currently typed
+the only type support you will get is when you `Vue.use(vueDebounce)`. 
+
+i.e.
+
+```typescript
+import Vue from 'vue'
+import vueDebounce, { PluginConfig, debounce } from 'vue-debounce'
+
+debounce(() => console.log('just a number!'), 400)
+debounce(() => console.log('normal format'), '400ms')
+
+Vue.use<PluginConfig>(vueDebounce, { lock: true, defaultTime: '400ms', listenTo: 'keyup' })
+```
+
+Hopefully in the future Vue will allow directives to type the modifiers and values that are accepted.
