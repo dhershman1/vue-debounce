@@ -1,8 +1,9 @@
 {
   "name": "vue-debounce",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "A simple vue directive for debounce",
   "main": "dist/vue-debounce.min.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "test": "tape -r esm tests/test.js | tap-spec",
     "prepack": "npm run lint && npm run build",
@@ -12,7 +13,8 @@
   },
   "standard": {
     "ignore": [
-      "dist/*"
+      "dist/*",
+      "types/*"
     ]
   },
   "repository": {
@@ -26,6 +28,9 @@
     "simple"
   ],
   "author": "Dustin Hershman",
+  "contributors": [
+    "Tommy May III <tommymay37@gmail.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dhershman1/vue-debounce/issues"
