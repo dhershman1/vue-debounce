@@ -1,5 +1,11 @@
 # Change Log
 
+## v2.2.0
+
+### New
+
+- Added Typescript Support thanks to @itmayziii
+
 ## v2.1.0
 
 ### New
