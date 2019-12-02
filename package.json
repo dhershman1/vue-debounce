@@ -28,6 +28,9 @@
     "simple"
   ],
   "author": "Dustin Hershman",
+  "contributors": [
+    "Tommy May III <tommymay37@gmail.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dhershman1/vue-debounce/issues"
