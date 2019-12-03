@@ -19,6 +19,7 @@ It attaches itself to an event for actions
 - [Usage](#usage)
 - [Overwriting Events](#overwriting-events)
 - [Use Just Debounce](#using-just-debounce)
+- [Typescript Support](#typescript-support)
 
 ## Features
 
@@ -159,7 +160,7 @@ debounce(() => console.log('just a number!'), 400)
 
 ## Typescript Support
 While this project is not written in typescript, we do define types in the `types` directory. Unfortunately the way Vue is currently typed
-the only type support you will get is when you `Vue.use(vueDebounce)`. 
+the only type support you will get is when you `Vue.use(vueDebounce)`.
 
 i.e.
 
