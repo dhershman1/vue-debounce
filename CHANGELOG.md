@@ -1,5 +1,12 @@
 # Change Log
 
+## v2.2.1
+
+### Fixed
+
+- Added Typescript section to the table of contents
+- Fixed author data to have my email
+
 ## v2.2.0
 
 ### New
