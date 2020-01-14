@@ -14,8 +14,10 @@ It attaches itself to an event for actions
 ## Content
 
 - [Features](#features)
+- [Installation](#installation)
 - [Modifiers](#modifiers)
 - [Options](#options)
+- [Option Defaults](#option-defaults)
 - [Usage](#usage)
 - [Overwriting Events](#overwriting-events)
 - [Use Just Debounce](#using-just-debounce)
@@ -30,6 +32,11 @@ It attaches itself to an event for actions
 - Enter key support to automatically fire the desired function when the user hits the enter key in the desired input (Can also be disabled)
 - Supports the ability to have multiple event listeners, and specify events at the element level
 
+## Installation
+```
+npm i vue-debounce
+```
+
 ## Modifiers
 
 - `lock` : Used to lock the debounce and prevent the enter key from triggering the function when pressed
@@ -38,14 +45,21 @@ It attaches itself to an event for actions
 
 ## Options
 
-- `lock` : `Boolean` : Default: `false` - This works the same way as the modifier does, however using the option will lock _ALL_ of the debounced inputs within that vue instance, where as using the modifer only locks the one it's attached to
-- `listenTo` : `String|Array` : Default: `keyup` - Allows you to set a custom event attached to an element like `input` for example
+- `lock` : `Boolean` - This works the same way as the modifier does, however using the option will lock _ALL_ of the debounced inputs within that vue instance, where as using the modifer only locks the one it's attached to
+- `listenTo` : `String|Array` - Allows you to set a custom event attached to an element like `input` for example
   - This is given to the `addEventListener` method attached to the element
-- `defaultTime` : `String` : Default: `'300ms'` - Set the default timer for debounce directives that you don't give a time to
+- `defaultTime` : `String` - Set the default timer for debounce directives that you don't give a time to
+- `fireOnEmpty` : `Boolean` - Tells debounce that if the input is empty, then fire the function immediately
 
-## Installation
-```
-npm i vue-debounce
+## Option Defaults
+
+```js
+{
+  lock: false,
+  listenTo: 'keyup',
+  defaultTime: '300ms',
+  fireOnEmpty: false
+}
 ```
 
 ## Usage

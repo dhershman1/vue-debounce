@@ -1,5 +1,11 @@
 # Change Log
 
+## v2.3.0
+
+### New
+
+- Added a new `fireOnEmpty` option that you can enable to fire the debounce function immediately if the input is empty
+
 ## v2.2.1
 
 ### Fixed
