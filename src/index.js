@@ -16,7 +16,7 @@ function figureOutEvent (attrs, listenTo) {
 export { debounce }
 
 export default {
-  install (Vue, { lock, listenTo = 'keyup', defaultTime = '300ms' } = {}) {
+  install (Vue, { lock, listenTo = 'keyup', defaultTime = '300ms', fireOnEmpty = false } = {}) {
     Vue.directive('debounce', {
       bind (el, { value, arg, modifiers }) {
         const listener = figureOutEvent(el.attributes, listenTo)
@@ -27,7 +27,7 @@ export default {
         function handler ({ key, target }) {
           const isUnlocked = (!modifiers.lock && !lock) || modifiers.unlock
 
-          if (key === 'Enter' && isUnlocked) {
+          if ((key === 'Enter' && isUnlocked) || (!target.value && fireOnEmpty)) {
             fn.cancel()
             value(target.value)
           }

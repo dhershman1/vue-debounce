@@ -1,5 +1,18 @@
 # Change Log
 
+## v2.3.0
+
+### New
+
+- Added a new `fireOnEmpty` option that you can enable to fire the debounce function immediately if the input is empty
+
+## v2.2.1
+
+### Fixed
+
+- Added Typescript section to the table of contents
+- Fixed author data to have my email
+
 ## v2.2.0
 
 ### New

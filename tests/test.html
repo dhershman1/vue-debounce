@@ -22,7 +22,7 @@
     <script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
     <script src="../dist/vue-debounce.min.js"></script>
     <script>
-      Vue.use(vueDebounce, { defaultTime: '2s' })
+      Vue.use(vueDebounce.default, { defaultTime: '2s', fireOnEmpty: true })
       new Vue({
         el: '#app',
         methods: {
