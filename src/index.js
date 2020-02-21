@@ -20,20 +20,20 @@ export default {
     Vue.directive('debounce', {
       bind (el, { value, arg, modifiers }) {
         const listener = figureOutEvent(el.attributes, listenTo)
-        const fn = debounce(target => {
-          value(target.value)
+        const fn = debounce(e => {
+          value(e.target.value, e)
         }, arg || defaultTime)
 
-        function handler ({ key, target }) {
+        function handler (event) {
           const isUnlocked = (!modifiers.lock && !lock) || modifiers.unlock
 
-          if ((key === 'Enter' && isUnlocked) || (!target.value && fireOnEmpty)) {
+          if ((event.key === 'Enter' && isUnlocked) || (!event.target.value && fireOnEmpty)) {
             fn.cancel()
-            value(target.value)
+            value(event.target.value, event)
           }
 
-          if (key !== 'Enter') {
-            fn(target)
+          if (event.key !== 'Enter') {
+            fn(event)
           }
         }
 
