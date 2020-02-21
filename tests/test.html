@@ -26,9 +26,10 @@
       new Vue({
         el: '#app',
         methods: {
-          foo (val) {
+          foo (val, e) {
             console.log('FOOBAR')
             console.log(val)
+            console.log(e)
           },
           testFn(val) {
             return cbVal => {
