@@ -120,7 +120,7 @@ You can pass the time in multiple formats:
 <input v-debounce:1s.unlock="myFunc" type="text" />
 ```
 
-The value of the input is passed along to your function
+The value of the input is passed along to your function as the first parameter, and the 2nd parameter is the event object itself.
 
 ## Overwriting Events
 
@@ -146,8 +146,9 @@ A full example:
 <script>
 export default {
   methods: {
-    myFn(val) {
+    myFn(val, e) {
       console.log(val) // => The value of the input
+      console.log(e) // => The event object
     }
   }
 }

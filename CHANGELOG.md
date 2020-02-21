@@ -1,5 +1,11 @@
 # Change Log
 
+## v2.4.0
+
+### New
+
+- Added the `event` Object itself to the function call, it is passed as the 2nd parameter
+
 ## v2.3.0
 
 ### New
