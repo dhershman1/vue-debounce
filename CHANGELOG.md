@@ -4,7 +4,7 @@
 
 ### New
 
-- Added `fireOnEmpty` modifiers, which allow you to choose individual inputs you want to have fireOnEmpty
+- Added `fireOnEmpty` modifier, which allow you to choose individual inputs you want to have fireOnEmpty
 - Added `cancelOnEmpty` modifier which cancels the debounce all together if the input value is empty
 
 ### Improved
