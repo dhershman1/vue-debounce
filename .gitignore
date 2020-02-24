@@ -2,6 +2,10 @@
 
 tests/test.html
 
+# Stupid Mac Files
+
+.DS_Store
+
 # Logs
 logs
 *.log
