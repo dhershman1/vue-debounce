@@ -42,6 +42,8 @@ npm i vue-debounce
 - `lock` : Used to lock the debounce and prevent the enter key from triggering the function when pressed
   - Example: `v-debounce:400ms.lock="cb"`
 - `unlock` : Used to unlock the enter key on a debounced input, useful if you want to use the `lock` option and only want a few debounced inputs unlocked
+- `fireOnEmpty` : Use to signify that when that specific input is emptied, you want the function to fire right away
+- `cancelOnEmpty` : Use this to specify that when the input is emptied you **DO NOT** want your debounced function to trigger at all
 
 ## Options
 

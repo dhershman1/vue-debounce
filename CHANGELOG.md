@@ -1,5 +1,20 @@
 # Change Log
 
+## v2.5.0
+
+### New
+
+- Added `fireOnEmpty` modifier, which allow you to choose individual inputs you want to have fireOnEmpty
+- Added `cancelOnEmpty` modifier which cancels the debounce all together if the input value is empty
+
+### Improved
+
+- Drastic code cleanup
+
+### Fixed
+
+- Bug with `fireOnEmpty` where debounce function would fire twice even when input was empty
+
 ## v2.4.0
 
 ### New
