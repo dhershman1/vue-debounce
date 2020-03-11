@@ -8,7 +8,7 @@
  * "modifiers" type - https://github.com/vuejs/vue/blob/fd0eaf92948bb5a4882d538362091fb287d642e3/types/options.d.ts#L184
  */
 
-import debounce from './debounce'
+import debounce, {DebounceInstance} from './debounce'
 
 export interface PluginConfig {
   lock?: boolean
@@ -25,5 +25,5 @@ export interface PluginObject {
 
 declare const pluginObject: PluginObject
 
-export { debounce }
+export { debounce, DebounceInstance }
 export default pluginObject
