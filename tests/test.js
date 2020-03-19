@@ -50,3 +50,22 @@ test('Handles seconds', t => {
 
   runner('testing')
 })
+
+test('Inherits parent scope', t => {
+  const runner = function(val) {
+    const someclass = function() {
+      this.somevalue = ''
+      this.somefunction = debounce(function() {
+        t.ok(val)
+        t.same(this.somevalue, 'scopedvalue')
+        t.end()
+      })
+    }
+
+    const instance = new someclass
+    instance.somevalue = val
+    instance.somefunction()
+  }
+
+  runner('scopedvalue')
+})
