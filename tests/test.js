@@ -57,7 +57,7 @@ test('Inherits parent scope', t => {
       this.somevalue = ''
       this.somefunction = debounce(function() {
         t.ok(val)
-        t.same(this.somevalue, 'scopedvalue')
+        t.same(this.somevalue, 'testing')
         t.end()
       })
     }
@@ -67,5 +67,5 @@ test('Inherits parent scope', t => {
     instance.somefunction()
   }
 
-  runner('scopedvalue')
+  runner('testing')
 })
