@@ -1,5 +1,11 @@
 # Change Log
 
+## v2.5.2
+
+### Improved
+
+- Added support for scope inheritance for `debounce` utility function [ilyasfoo](https://github.com/ilyasfoo) this might address [#28](https://github.com/dhershman1/vue-debounce/issues/28)
+
 ## v2.5.1
 
 ### Fixed
