@@ -1,0 +1,34 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: circleci/node:12
+
+    working_directory: ~/vue-debounce
+
+    steps:
+      - checkout
+
+      - run:
+          name: install-deps
+          command: npm ci
+
+      # lint
+      - run:
+          name: lint
+          command: npm run lint
+      # run tests and report coverage
+      - run:
+          name: test
+          command: npm t
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - master
+                - development
+              ignore: gh-pages

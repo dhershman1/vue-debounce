@@ -9,7 +9,8 @@
     "prepack": "npm run lint && npm run build",
     "build": "rollup -c",
     "watch": "rollup -c -w",
-    "lint": "standard --fix src/*.js"
+    "lint": "standard src/*.js",
+    "linit:fix": "standard --fix src/*.js"
   },
   "standard": {
     "ignore": [
