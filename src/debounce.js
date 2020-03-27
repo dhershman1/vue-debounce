@@ -12,7 +12,7 @@ function debounce (fn, wait) {
   let timeout = null
   const timer = typeof wait === 'number' ? wait : convertTime(wait)
 
-  const debounced = function(...args) {
+  const debounced = function (...args) {
     const later = () => {
       timeout = null
 

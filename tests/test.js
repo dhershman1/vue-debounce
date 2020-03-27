@@ -53,7 +53,7 @@ test('Handles seconds', t => {
 
 test('Inherits parent scope', t => {
   const runner = function (val) {
-    const someclass = function ($options) {
+    const Someclass = function ($options) {
       this.somevalue = ''
       this.$options = $options
 
@@ -68,7 +68,7 @@ test('Inherits parent scope', t => {
         }
       }
 
-      this._initMethods = function() {
+      this._initMethods = function () {
         var methods = this.$options.methods
         if (methods) {
           for (var key in methods) {
@@ -80,9 +80,9 @@ test('Inherits parent scope', t => {
       this._initMethods()
     }
 
-    const vm = new someclass({
+    const vm = new Someclass({
       methods: {
-        somefunction: debounce(function() {
+        somefunction: debounce(function () {
           t.ok(val)
           t.same(this.somevalue, 'testing')
           t.end()
