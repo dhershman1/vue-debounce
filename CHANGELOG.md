@@ -1,5 +1,11 @@
 # Change Log
 
+## v2.5.1
+
+### Fixed
+
+- typescript typing for the return on the debounce function [@bobvandevijver](https://github.com/bobvandevijver)
+
 ## v2.5.0
 
 ### New

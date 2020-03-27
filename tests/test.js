@@ -50,3 +50,49 @@ test('Handles seconds', t => {
 
   runner('testing')
 })
+
+test('Inherits parent scope', t => {
+  const runner = function (val) {
+    const someclass = function ($options) {
+      this.somevalue = ''
+      this.$options = $options
+
+      this.bind = function (fn, ctx) {
+        return function (a) {
+          var l = arguments.length
+          return l
+            ? l > 1
+              ? fn.apply(ctx, arguments)
+              : fn.call(ctx, a)
+            : fn.call(ctx)
+        }
+      }
+
+      this._initMethods = function() {
+        var methods = this.$options.methods
+        if (methods) {
+          for (var key in methods) {
+            this[key] = this.bind(methods[key], this)
+          }
+        }
+      }
+
+      this._initMethods()
+    }
+
+    const vm = new someclass({
+      methods: {
+        somefunction: debounce(function() {
+          t.ok(val)
+          t.same(this.somevalue, 'testing')
+          t.end()
+        })
+      }
+    })
+
+    vm.somevalue = val
+    vm.somefunction()
+  }
+
+  runner('testing')
+})
