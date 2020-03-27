@@ -12,18 +12,18 @@ function debounce (fn, wait) {
   let timeout = null
   const timer = typeof wait === 'number' ? wait : convertTime(wait)
 
-  const debounced = (...args) => {
+  const debounced = function (...args) {
     const later = () => {
       timeout = null
 
-      fn(...args)
+      fn.apply(this, args)
     }
 
     clearTimeout(timeout)
     timeout = setTimeout(later, timer)
 
     if (!timeout) {
-      fn(...args)
+      fn.apply(this, args)
     }
   }
 
