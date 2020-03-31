@@ -1,5 +1,11 @@
 # Change Log
 
+## v2.5.3
+
+### Fixed
+
+- Unclear documentation on using the `debounce` function [#34](https://github.com/dhershman1/vue-debounce/issues/34)
+
 ## v2.5.2
 
 ### Improved

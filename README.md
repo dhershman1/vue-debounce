@@ -167,12 +167,14 @@ Simply require the debounce file.
 import { debounce } from 'vue-debounce'
 ```
 
-And then you can use it as a function like so:
+The `debounce` function returns a function back which in turn is debounced, so you can set them up ahead of time, or just double call the function like so:
 
 ```js
-debounce(() => console.log('normal format'), '400ms')
+const dFn = debounce(val => console.log('normal format', val), '400ms')
+
+dFn(10) // => 'normal format' 10
 // Or
-debounce(() => console.log('just a number!'), 400)
+debounce(val => console.log('just a number!'), 400)(10) // => 'just a number!' 10
 ```
 
 ## Typescript Support
