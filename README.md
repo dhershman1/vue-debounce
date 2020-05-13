@@ -19,6 +19,7 @@ It attaches itself to an event for actions
 - [Options](#options)
 - [Option Defaults](#option-defaults)
 - [Usage](#usage)
+- [Modifier Usage](#modifier-usage)
 - [Overwriting Events](#overwriting-events)
 - [Use Just Debounce](#using-just-debounce)
 - [Typescript Support](#typescript-support)
