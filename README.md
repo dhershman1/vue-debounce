@@ -212,7 +212,7 @@ Hopefully in the future Vue will allow directives to type the modifiers and valu
 
 ## Caveats
 
-There is a caveat explained in issue #36 which states you're unable to intercept manually triggered events automatically and instead have to trigger the debounced function at the catching point.
+There is a caveat explained in issue [#36](https://github.com/dhershman1/vue-debounce/issues/36) which states you're unable to intercept manually triggered events automatically and instead have to trigger the debounced function at the catching point.
 
 For example, if you have a custom component that is manually firing an input event back to the parent, you might do something like this:
 
