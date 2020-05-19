@@ -115,24 +115,24 @@ You can pass the time in multiple formats:
 
 <!-- Seconds format is supported -->
 <input v-debounce:1s="myFunc" type="text" />
-
-<!-- Using Modifiers locking the input so the enter key isn't registered -->
-<input v-debounce:1s.lock="myFunc" type="text" />
-
-<!-- Using Modifiers unlocking the input so the enter key is registered -->
-<!-- If you've set lock to true as an option when adding this module -->
-<input v-debounce:1s.unlock="myFunc" type="text" />
 ```
 
 The value of the input is passed along to your function as the first parameter, and the 2nd parameter is the event object itself.
 
 ## Modifier Usage
 
-Using modifiers works just like normal vue directives above you see the `lock` and `unlock` modifiers here is an example of the others:
+Using modifiers works just like normal Vue directives. You can chain them to the timeout value and each other. Some examples include:
 
 > **IMPORTANT NOTE**: Modifiers WILL overwrite options you have set, for example if you set the `fireOnEmpty` option set to true and then tag a input with the `cancelonempty` modifier then the debounced function will cancel when **THAT** input is empty instead of fire.
 
 ```vue
+<!-- Using Modifiers locking the input so the enter key isn't registered -->
+<input v-debounce:1s.lock="myFunc" type="text" />
+
+<!-- Using Modifiers unlocking the input so the enter key is registered -->
+<!-- If you've set lock to true as an option when adding this module -->
+<input v-debounce:1s.unlock="myFunc" type="text" />
+
 <!-- Using the fireonempty modifier triggers your debounced function when this specific input field is empty -->
 <input v-debounce:1s.fireonempty="myFunc" type="text" />
 
