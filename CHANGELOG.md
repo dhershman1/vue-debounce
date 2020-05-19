@@ -1,5 +1,15 @@
 # Change Log
 
+## v2.5.4
+
+### Improved
+
+- Caveats section added [#36](https://github.com/dhershman1/vue-debounce/issues/36)
+
+### Fixed
+
+- Unclear documentation for `modifiers` [#37](https://github.com/dhershman1/vue-debounce/issues/37)
+
 ## v2.5.3
 
 ### Fixed
