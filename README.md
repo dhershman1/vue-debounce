@@ -19,9 +19,11 @@ It attaches itself to an event for actions
 - [Options](#options)
 - [Option Defaults](#option-defaults)
 - [Usage](#usage)
+- [Modifier Usage](#modifier-usage)
 - [Overwriting Events](#overwriting-events)
 - [Use Just Debounce](#using-just-debounce)
 - [Typescript Support](#typescript-support)
+- [Caveats](#caveats)
 
 ## Features
 
@@ -42,8 +44,8 @@ npm i vue-debounce
 - `lock` : Used to lock the debounce and prevent the enter key from triggering the function when pressed
   - Example: `v-debounce:400ms.lock="cb"`
 - `unlock` : Used to unlock the enter key on a debounced input, useful if you want to use the `lock` option and only want a few debounced inputs unlocked
-- `fireOnEmpty` : Use to signify that when that specific input is emptied, you want the function to fire right away
-- `cancelOnEmpty` : Use this to specify that when the input is emptied you **DO NOT** want your debounced function to trigger at all
+- `fireonempty` : Use to signify that when that specific input is emptied, you want the function to fire right away
+- `cancelonempty` : Use this to specify that when the input is emptied you **DO NOT** want your debounced function to trigger at all
 
 ## Options
 
@@ -113,16 +115,30 @@ You can pass the time in multiple formats:
 
 <!-- Seconds format is supported -->
 <input v-debounce:1s="myFunc" type="text" />
+```
 
+The value of the input is passed along to your function as the first parameter, and the 2nd parameter is the event object itself.
+
+## Modifier Usage
+
+Using modifiers works just like normal Vue directives. You can chain them to the timeout value and each other. Some examples include:
+
+> **IMPORTANT NOTE**: Modifiers WILL overwrite options you have set, for example if you set the `fireOnEmpty` option set to true and then tag a input with the `cancelonempty` modifier then the debounced function will cancel when **THAT** input is empty instead of fire.
+
+```vue
 <!-- Using Modifiers locking the input so the enter key isn't registered -->
 <input v-debounce:1s.lock="myFunc" type="text" />
 
 <!-- Using Modifiers unlocking the input so the enter key is registered -->
 <!-- If you've set lock to true as an option when adding this module -->
 <input v-debounce:1s.unlock="myFunc" type="text" />
-```
 
-The value of the input is passed along to your function as the first parameter, and the 2nd parameter is the event object itself.
+<!-- Using the fireonempty modifier triggers your debounced function when this specific input field is empty -->
+<input v-debounce:1s.fireonempty="myFunc" type="text" />
+
+<!-- Using the cancelonempty modifier tells debounce to cancel function execution when the field is empty -->
+<input v-debounce:1s.cancelonempty="myFunc" type="text" />
+```
 
 ## Overwriting Events
 
@@ -194,3 +210,30 @@ Vue.use<PluginConfig>(vueDebounce, { lock: true, defaultTime: '400ms', listenTo:
 ```
 
 Hopefully in the future Vue will allow directives to type the modifiers and values that are accepted.
+
+## Caveats
+
+There is a caveat explained in issue [#36](https://github.com/dhershman1/vue-debounce/issues/36) which states you're unable to intercept manually triggered events automatically and instead have to trigger the debounced function at the catching point.
+
+For example, if you have a custom component that is manually firing an input event back to the parent, you might do something like this:
+
+```vue
+<CustomComponent
+  v-model="options"
+  @input="debouncedSelectUpdate"
+/>
+```
+
+Where `debounceSelectedUpdate` looks like this:
+
+```js
+debounceSelectedUpdate () {
+  return debounce(() => {
+    // Taken from issue #36 as an example
+    this.refreshDefaultSelect()
+  }, 300)
+}
+```
+
+
+Or have a method that handles it for you and calls debounce etc. If anyone has advice on handling manual vue events automatically please don't hesitate to share!
