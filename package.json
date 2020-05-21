@@ -1,6 +1,6 @@
 {
   "name": "vue-debounce",
-  "version": "2.5.4",
+  "version": "2.5.5",
   "description": "A simple vue directive for debounce",
   "main": "dist/vue-debounce.min.js",
   "types": "types/index.d.ts",
@@ -49,5 +49,8 @@
   },
   "peerDependencies": {
     "vue": "2.x.x"
+  },
+  "dependencies": {
+    "kyanite": "~1.3.0"
   }
 }

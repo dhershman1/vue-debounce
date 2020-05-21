@@ -1,5 +1,11 @@
 # Change Log
 
+## v2.5.5
+
+### Improved
+
+- Switched over to my library `kyanite` for some of the utility work, removing some excess code
+
 ## v2.5.4
 
 ### Improved
