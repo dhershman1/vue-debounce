@@ -1,5 +1,13 @@
 # Change Log
 
+## v2.5.6
+
+### Improved
+
+- Converted over to `Terser` instead of `uglify`
+- Converted over to `babel` instead of `buble`
+- Added my library `kyanite` to handle the utility functions instead of re writing them
+
 ## v2.5.5
 
 ### Improved
