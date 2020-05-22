@@ -1,3 +1,4 @@
+import { ensureArray, toLower, map, isEmpty } from 'kyanite'
 import debounce from './debounce'
 
 // Helper Functions
@@ -5,25 +6,7 @@ import debounce from './debounce'
  * Maps through an array of strings and lowercases all of them
  * @param {Array} list an array of strings to map through
  */
-function toLowerMap (list) {
-  return list.map(x => x.toLowerCase())
-}
-
-/**
- * Takes in a value and ensures its wrapped within an array
- * @param {Any} value The value to ensure is an array
- */
-function ensureArray (value) {
-  if (Array.isArray(value)) {
-    return value
-  }
-
-  if (value == null) {
-    return []
-  }
-
-  return [value]
-}
+const toLowerMap = map(toLower)
 
 // Figures out the event we are using with the bound element
 function mapOutListeningEvents (attrs, listenTo) {
@@ -35,10 +18,6 @@ function mapOutListeningEvents (attrs, listenTo) {
   }
 
   return toLowerMap(ensureArray(listenTo))
-}
-
-function isEmpty (str) {
-  return str === ''
 }
 
 function isCanceled (inputValue, modifiers) {
