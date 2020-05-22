@@ -1,11 +1,15 @@
-import buble from 'rollup-plugin-buble'
-import { uglify } from 'rollup-plugin-uglify'
+import babel from 'rollup-plugin-babel'
+import filesize from 'rollup-plugin-filesize'
+import { terser } from 'rollup-plugin-terser'
 
 export default [{
   input: './src/index.js',
   plugins: [
-    buble(),
-    uglify()
+    babel(),
+    terser(),
+    filesize({
+      showMinifiedSize: false
+    })
   ],
   watch: {
     chokidar: true,
@@ -15,13 +19,21 @@ export default [{
   output: {
     format: 'umd',
     name: 'vueDebounce',
-    file: 'dist/vue-debounce.min.js'
-  }
+    file: 'dist/vue-debounce.min.js',
+    exports: 'named',
+    globals: {
+      kyanite: 'kyanite'
+    }
+  },
+  external: ['kyanite']
 }, {
   input: './src/debounce.js',
   plugins: [
-    buble(),
-    uglify()
+    babel(),
+    terser(),
+    filesize({
+      showMinifiedSize: false
+    })
   ],
   output: {
     format: 'umd',
