@@ -1,5 +1,11 @@
 # Change Log
 
+## v2.5.6
+
+### Fixed
+
+- Restored IE11 support by updating kyanite to its latest version
+
 ## v2.5.5
 
 ### Improved
