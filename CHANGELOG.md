@@ -1,5 +1,11 @@
 # Change Log
 
+## v2.5.7
+
+### Fixed
+
+- Took out Kyanite for compatibility reasons
+
 ## v2.5.6
 
 ### Fixed
