@@ -59,19 +59,19 @@ test('Inherits parent scope', t => {
 
       this.bind = function (fn, ctx) {
         return function (a) {
-          var l = arguments.length
+          const l = arguments.length
           return l
             ? l > 1
-              ? fn.apply(ctx, arguments)
-              : fn.call(ctx, a)
+                ? fn.apply(ctx, arguments)
+                : fn.call(ctx, a)
             : fn.call(ctx)
         }
       }
 
       this._initMethods = function () {
-        var methods = this.$options.methods
+        const methods = this.$options.methods
         if (methods) {
-          for (var key in methods) {
+          for (const key in methods) {
             this[key] = this.bind(methods[key], this)
           }
         }
