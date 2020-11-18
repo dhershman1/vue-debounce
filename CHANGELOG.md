@@ -10,6 +10,7 @@
 ### Fixed
 
 - Removed david-md badges from readme since it seems to be down for good
+- Linting fixes in the test files
 
 ## v2.5.7
 
