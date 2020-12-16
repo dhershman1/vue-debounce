@@ -1,5 +1,12 @@
 # Change Log
 
+## v2.6.0
+
+### New
+
+- Added Vue 3 Compatibility :tada:
+  - This involves the backwards compatibility change I brought up in discussions
+
 ## v2.5.8
 
 ### Improved
