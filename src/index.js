@@ -52,6 +52,17 @@ function isLocked (key, modifiers) {
 function shouldFireOnEmpty (inputValue, modifiers) {
   return isEmpty(inputValue) && modifiers.fireonempty
 }
+
+function determineVersion (v) {
+  const [major] = v.split('.')
+
+  if (Number(major) >= 3) {
+    return 'mounted'
+  }
+
+  return 'bind'
+}
+
 export { debounce }
 
 export default {
@@ -63,7 +74,7 @@ export default {
     cancelOnEmpty = false
   } = {}) {
     Vue.directive('debounce', {
-      bind (el, {
+      [determineVersion(Vue.version)] (el, {
         value: debouncedFn,
         arg: timer = defaultTime,
         modifiers

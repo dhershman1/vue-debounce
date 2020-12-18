@@ -5,6 +5,8 @@
 test.html
 test-vue3.html
 
+dist/
+
 # Logs
 logs
 *.log

@@ -1,5 +1,19 @@
 # Change Log
 
+## v2.6.0
+
+### New
+
+- Added Vue 3 Compatibility :tada:
+  - This involves the backwards compatibility change I brought up in discussions
+
+### Improved
+
+- Dropped `dist/` from the repo
+  - This is so it doesnt bog down PRs
+  - dist is still available on npm as its built before deploy
+  - Your CDN (if using) should _NOT_ be affected
+
 ## v2.5.8
 
 ### Improved
