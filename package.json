@@ -23,7 +23,9 @@
     "url": "git+https://github.com/dhershman1/vue-debounce.git"
   },
   "keywords": [
+    "vue2",
     "vue",
+    "vue3",
     "debounce",
     "directive",
     "simple"
