@@ -1,11 +1,18 @@
 # Change Log
 
-## v2.7.0
+## v3.0.0
+
+### BREAKING CHANGES
+
+- Lots of code condencing, shouldn't break anything but just in case
+- Changed how debouncing `fireonempty` works. It had a bug so I made it a bit more strict to fix this
+  - Please open issues ASAP if this functionality is not working as expected
 
 ### New
 
 - Added new `trim` option and modifier, this allows you to trim inputs that come through
   - The value given to your function will **NOT** be the trimmed value, trim is only used for logic to see if things should be ran
+- Added `getDirective` function which allows you to create a directive instance at lower levels other than global
 
 ### Improved
 
