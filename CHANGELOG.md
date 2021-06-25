@@ -1,5 +1,17 @@
 # Change Log
 
+## v2.7.0
+
+### New
+
+- Added new `trim` option and modifier, this allows you to trim inputs that come through
+  - The value given to your function will **NOT** be the trimmed value, trim is only used for logic to see if things should be ran
+
+### Improved
+
+- Some small code cleanup
+- Updated dependencies
+
 ## v2.6.0
 
 ### New
