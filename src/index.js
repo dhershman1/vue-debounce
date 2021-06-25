@@ -41,10 +41,6 @@ function isEmpty (str) {
   return str === ''
 }
 
-function isCanceled (inputValue, modifiers) {
-  return isEmpty(inputValue) && modifiers.cancelonempty
-}
-
 function isLocked (key, modifiers) {
   return key === 'Enter' && (!modifiers.lock || modifiers.unlock)
 }
@@ -92,9 +88,9 @@ export default {
         }, timer)
 
         function handler (event) {
-          const value = modifiers.trim ? event.target.value.trim() : event.target.value
+          const value = combinedRules.trim ? event.target.value.trim() : event.target.value
 
-          if (isCanceled(value, combinedRules)) {
+          if (isEmpty(value) && combinedRules.cancelonempty) {
             fn.cancel()
           } else if (isLocked(event.key, combinedRules) || shouldFireOnEmpty(value, combinedRules)) {
             fn.cancel()
