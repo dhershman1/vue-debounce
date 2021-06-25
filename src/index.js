@@ -94,7 +94,7 @@ export default {
             fn.cancel()
           } else if (isLocked(event.key, combinedRules) || shouldFireOnEmpty(value, combinedRules)) {
             fn.cancel()
-            debouncedFn(value, event)
+            debouncedFn(event.target.value, event)
           } else {
             fn(event)
           }
