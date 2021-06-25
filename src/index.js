@@ -71,7 +71,8 @@ export default {
     listenTo = 'keyup',
     defaultTime = '300ms',
     fireOnEmpty = false,
-    cancelOnEmpty = false
+    cancelOnEmpty = false,
+    trim = false
   } = {}) {
     Vue.directive('debounce', {
       [determineVersion(Vue.version)] (el, {
@@ -79,18 +80,25 @@ export default {
         arg: timer = defaultTime,
         modifiers
       }) {
-        const combinedRules = Object.assign({ fireonempty: fireOnEmpty, cancelonempty: cancelOnEmpty, lock }, modifiers)
+        const combinedRules = Object.assign({
+          lock,
+          trim,
+          fireonempty: fireOnEmpty,
+          cancelonempty: cancelOnEmpty
+        }, modifiers)
         const listener = mapOutListeningEvents(el.attributes, listenTo)
         const fn = debounce(e => {
           debouncedFn(e.target.value, e)
         }, timer)
 
         function handler (event) {
-          if (isCanceled(event.target.value, combinedRules)) {
+          const value = modifiers.trim ? event.target.value.trim() : event.target.value
+
+          if (isCanceled(value, combinedRules)) {
             fn.cancel()
-          } else if (isLocked(event.key, combinedRules) || shouldFireOnEmpty(event.target.value, combinedRules)) {
+          } else if (isLocked(event.key, combinedRules) || shouldFireOnEmpty(value, combinedRules)) {
             fn.cancel()
-            debouncedFn(event.target.value, event)
+            debouncedFn(value, event)
           } else {
             fn(event)
           }

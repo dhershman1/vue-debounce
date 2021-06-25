@@ -14,7 +14,8 @@ export interface PluginConfig {
   lock?: boolean
   listenTo?: string | string[]
   defaultTime?: string | number
-  fireOnEmpty?: boolean
+  fireOnEmpty?: boolean,
+  trim?: boolean
 }
 
 export interface PluginObject {

@@ -45,6 +45,7 @@ npm i vue-debounce
 - `unlock` : Used to unlock the enter key on a debounced input, useful if you want to use the `lock` option and only want a few debounced inputs unlocked
 - `fireonempty` : Use to signify that when that specific input is emptied, you want the function to fire right away
 - `cancelonempty` : Use this to specify that when the input is emptied you **DO NOT** want your debounced function to trigger at all
+- `trim` : `Boolean` - Tells debounce to trim out white space using the `String.prototype.trim()` function
 
 ## Options
 
@@ -53,6 +54,7 @@ npm i vue-debounce
   - This is given to the `addEventListener` method attached to the element
 - `defaultTime` : `String` - Set the default timer for debounce directives that you don't give a time to
 - `fireOnEmpty` : `Boolean` - Tells debounce that if the input is empty, then fire the function immediately
+- `trim` : `Boolean` - Tells debounce to trim out white space using the `String.prototype.trim()` function
 
 ## Option Defaults
 
@@ -61,7 +63,8 @@ npm i vue-debounce
   lock: false,
   listenTo: 'keyup',
   defaultTime: '300ms',
-  fireOnEmpty: false
+  fireOnEmpty: false,
+  trim: false
 }
 ```
 
