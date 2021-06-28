@@ -2,6 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/vue-debounce.svg?style=flat-square)](https://www.npmjs.com/package/vue-debounce)
 [![Downloads](https://img.shields.io/npm/dm/vue-debounce.svg?style=flat-square)](https://www.npmjs.com/package/vue-debounce)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/dhershman1/vue-debounce.svg?style=flat-square&logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/dhershman1/vue-debounce/context:javascript)
 
 A simple to use directive for debounce solutions
 
@@ -16,6 +17,7 @@ It attaches itself to an event for actions
 - [Modifiers](#modifiers)
 - [Options](#options)
 - [Option Defaults](#option-defaults)
+- [getDirective Usage](#getdirective-usage)
 - [Usage](#usage)
 - [Modifier Usage](#modifier-usage)
 - [Overwriting Events](#overwriting-events)
@@ -44,6 +46,7 @@ npm i vue-debounce
 - `unlock` : Used to unlock the enter key on a debounced input, useful if you want to use the `lock` option and only want a few debounced inputs unlocked
 - `fireonempty` : Use to signify that when that specific input is emptied, you want the function to fire right away
 - `cancelonempty` : Use this to specify that when the input is emptied you **DO NOT** want your debounced function to trigger at all
+- `trim` : `Boolean` - Tells debounce to trim out white space using the `String.prototype.trim()` function
 
 ## Options
 
@@ -52,6 +55,7 @@ npm i vue-debounce
   - This is given to the `addEventListener` method attached to the element
 - `defaultTime` : `String` - Set the default timer for debounce directives that you don't give a time to
 - `fireOnEmpty` : `Boolean` - Tells debounce that if the input is empty, then fire the function immediately
+- `trim` : `Boolean` - Tells debounce to trim out white space using the `String.prototype.trim()` function
 
 ## Option Defaults
 
@@ -60,9 +64,23 @@ npm i vue-debounce
   lock: false,
   listenTo: 'keyup',
   defaultTime: '300ms',
-  fireOnEmpty: false
+  fireOnEmpty: false,
+  trim: false
 }
 ```
+
+## getDirective Usage
+
+As of v3.0.0 a new function called `getDirective` is now exported, this allows you to import a function that lets you create the debounce directive at any level in your app instead of just globally.
+
+### Arguments
+
+This function takes in 2 arguments, they are:
+
+- `version` : `String` - This is the version of vue you're using, simply put `'2'` or `'3'` here
+  - Version automatically defaults to version 2
+  - This is so that backwards compatibility can still be supported, since I don't have access to the Vue context when you don't install globally
+- `opts` : `Object` - This is the options object, use it the same way you would use it if using vue-debounce globally
 
 ## Usage
 
@@ -93,6 +111,19 @@ Vue.use(vueDebounce, {
 Vue.use(vueDebounce, {
   defaultTime: '700ms'
 })
+```
+
+You can also attach the directive at a component level as of v3:
+
+```js
+import { getDirective } from 'vue-debounce'
+
+const component = {
+  directives: {
+    // Please see above for arguments you can pass to this function
+    debounce: getDirective()
+  }
+}
 ```
 
 Then attach a time:format to the directive, and set the value to the function you want to call and attach it to your input element

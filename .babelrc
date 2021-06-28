@@ -3,14 +3,12 @@
     [
       "@babel/preset-env",
       {
-        "targets": {
-          "browsers": [
-            "last 1 versions"
-          ]
-        },
-        "modules": false
+        "targets": "defaults"
       }
     ]
   ],
-  "exclude": "node_modules/**"
+  "exclude": [
+    "node_modules/**",
+    "dist"
+  ]
 }
