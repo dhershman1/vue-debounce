@@ -22,13 +22,13 @@ interface GetDirective {
   (version?: string, opts?: PluginConfig): DirectiveObject
 }
 
-interface DebounceInstance {
-  (): void,
+interface DebounceInstance<A extends any[]> {
+  (...args: A): void,
   cancel(): void,
 }
 
 interface Debounce {
-  (fn: (...args: any[]) => void, wait: number | string): DebounceInstance
+  <A extends any[]>(fn: (...args: A) => void, wait: number | string): DebounceInstance<A>
 }
 
 declare const debounce: Debounce
