@@ -1,6 +1,6 @@
 {
   "name": "vue-debounce",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A simple vue directive for debounce",
   "main": "dist/vue-debounce.min.js",
   "types": "types/index.d.ts",
@@ -10,7 +10,7 @@
     "build": "rollup -c",
     "watch": "rollup -c -w",
     "lint": "standard src/*.js",
-    "linit:fix": "standard --fix src/*.js"
+    "lint:fix": "standard --fix src/*.js"
   },
   "standard": {
     "ignore": [

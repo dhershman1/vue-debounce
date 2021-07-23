@@ -3,6 +3,7 @@
 .DS_Store
 
 test.html
+test-func.html
 test-vue3.html
 
 dist/

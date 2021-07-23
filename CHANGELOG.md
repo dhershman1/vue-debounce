@@ -1,5 +1,12 @@
 # Change Log
 
+## v3.0.1
+
+### Improved
+
+- Types for debounce (thanks to [hrobertson](https://github.com/hrobertson))
+- Placement of the readme for `getDirective`
+
 ## v3.0.0
 
 ### BREAKING CHANGES
