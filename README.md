@@ -82,6 +82,25 @@ This function takes in 2 arguments, they are:
   - This is so that backwards compatibility can still be supported, since I don't have access to the Vue context when you don't install globally
 - `opts` : `Object` - This is the options object, use it the same way you would use it if using vue-debounce globally
 
+```js
+import { getDirective } from 'vue-debounce'
+
+const component = {
+  directives: {
+    // Please see above for arguments you can pass to this function
+    debounce: getDirective()
+  }
+}
+
+// If you are using vue 3 you MUST tell the function this by passing in the first argument
+const component = {
+  directives: {
+    // Pass in 3 to tell the function you're using vue 3, I'm going to work on improving this in the future
+    debounce: getDirective(3)
+  }
+}
+```
+
 ## Usage
 
 First make sure we tell vue to use it
@@ -111,19 +130,6 @@ Vue.use(vueDebounce, {
 Vue.use(vueDebounce, {
   defaultTime: '700ms'
 })
-```
-
-You can also attach the directive at a component level as of v3:
-
-```js
-import { getDirective } from 'vue-debounce'
-
-const component = {
-  directives: {
-    // Please see above for arguments you can pass to this function
-    debounce: getDirective()
-  }
-}
 ```
 
 Then attach a time:format to the directive, and set the value to the function you want to call and attach it to your input element
