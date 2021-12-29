@@ -1,5 +1,20 @@
 # Change Log
 
+## v3.0.2
+
+### New
+
+- The build will now push out a esm module as well with the other minified versions check the readme on how to use it
+
+### Chores
+
+- Updated dependencies
+- Ran Audit on dev deps (and fixed)
+
+### Fixed
+
+- Some documentation mis communications
+
 ## v3.0.1
 
 ### Improved

@@ -69,6 +69,18 @@ npm i vue-debounce
 }
 ```
 
+## CDN Support
+
+As of `v3.0.2` CDN support is fixed to work with ESM projects. If you need to use the esm setup simply import them like so:
+
+```js
+import debounce from 'https://unpkg.com/vue-debounce@3.0.2/dist/debounce.min.mjs';
+
+// Or all of vue-debounce
+
+import vueDebounce from 'https://unpkg.com/vue-debounce@3.0.2/dist/vue-debounce.min.mjs';
+```
+
 ## getDirective Usage
 
 As of v3.0.0 a new function called `getDirective` is now exported, this allows you to import a function that lets you create the debounce directive at any level in your app instead of just globally.
@@ -218,7 +230,7 @@ Simply require the debounce file.
 import { debounce } from 'vue-debounce'
 ```
 
-The `debounce` function returns a function back which in turn is debounced, so you can set them up ahead of time, or just double call the function like so:
+The `debounce` function returns a function back which in turn is debounced, so you can set them up ahead of time:
 
 ```js
 const dFn = debounce(val => console.log('normal format', val), '400ms')
