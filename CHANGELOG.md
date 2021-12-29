@@ -1,5 +1,16 @@
 # Change Log
 
+## v3.0.2
+
+### Chores
+
+- Updated dependencies
+- Ran Audit on dev deps (and fixed)
+
+### Fixed
+
+- Some documentation mis communications
+
 ## v3.0.1
 
 ### Improved
