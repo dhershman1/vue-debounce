@@ -218,7 +218,7 @@ Simply require the debounce file.
 import { debounce } from 'vue-debounce'
 ```
 
-The `debounce` function returns a function back which in turn is debounced, so you can set them up ahead of time, or just double call the function like so:
+The `debounce` function returns a function back which in turn is debounced, so you can set them up ahead of time:
 
 ```js
 const dFn = debounce(val => console.log('normal format', val), '400ms')
