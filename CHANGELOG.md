@@ -2,6 +2,10 @@
 
 ## v3.0.2
 
+### New
+
+- The build will now push out a esm module as well with the other minified versions check the readme on how to use it
+
 ### Chores
 
 - Updated dependencies

@@ -36,4 +36,38 @@ export default [{
     name: 'debounce',
     file: 'dist/debounce.min.js'
   }
+}, {
+  input: './src/debounce.js',
+  plugins: [
+    babel({ babelHelpers: 'bundled' }),
+    terser(),
+    filesize({
+      showMinifiedSize: false
+    })
+  ],
+  output: {
+    format: 'es',
+    name: 'debounce',
+    file: 'dist/debounce.min.mjs'
+  }
+}, {
+  input: './src/index.js',
+  plugins: [
+    babel({ babelHelpers: 'bundled' }),
+    terser(),
+    filesize({
+      showMinifiedSize: false
+    })
+  ],
+  watch: {
+    chokidar: true,
+    include: 'src/**',
+    clearScreen: false
+  },
+  output: {
+    format: 'es',
+    name: 'vueDebounce',
+    file: 'dist/vue-debounce.min.mjs',
+    exports: 'named'
+  }
 }]
