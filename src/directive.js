@@ -27,11 +27,13 @@ function ensureArray (value) {
 
 // Figures out the event we are using with the bound element
 function mapOutListeningEvents (attrs, listenTo) {
-  const { value = false } = attrs.getNamedItem('debounce-events') || {}
-
   // If they set an events attribute that overwrites everything
-  if (value) {
-    return toLowerMap(value.split(','))
+  if (attrs) {
+    // Since they can send in an array or a string we need to be prepared for both
+    if (Array.isArray(attrs)) {
+      return toLowerMap(attrs)
+    }
+    return toLowerMap(attrs.split(','))
   }
 
   return toLowerMap(ensureArray(listenTo))
@@ -72,14 +74,14 @@ export function getDirective (version = '2', {
       value: debouncedFn,
       arg: timer = defaultTime,
       modifiers
-    }) {
+    }, vnode) {
       const combinedRules = Object.assign({
         lock,
         trim,
         fireonempty: fireOnEmpty,
         cancelonempty: cancelOnEmpty
       }, modifiers)
-      const listener = mapOutListeningEvents(el.attributes, listenTo)
+      const events = mapOutListeningEvents(vnode.data.attrs['debounce-events'], listenTo)
       const fn = debounce(e => {
         debouncedFn(e.target.value, e)
       }, timer)
@@ -97,7 +99,7 @@ export function getDirective (version = '2', {
         }
       }
 
-      listener.forEach(e => {
+      events.forEach(e => {
         el.addEventListener(e, handler)
       })
     }

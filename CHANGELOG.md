@@ -1,5 +1,16 @@
 # Change Log
 
+## v3.1.0
+
+### Improved
+
+- Now using vNode instead of raw events, this allows us to use events no matter how deep [#66](https://github.com/dhershman1/vue-debounce/issues/66)
+  - The above improves compatability with libraries like Vuetify
+
+### Chore
+
+- Dependency Updates and Audit fixes
+
 ## v3.0.2
 
 ### New
