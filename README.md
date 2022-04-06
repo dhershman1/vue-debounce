@@ -260,27 +260,10 @@ Hopefully in the future Vue will allow directives to type the modifiers and valu
 
 ## Caveats
 
-There is a caveat explained in issue [#36](https://github.com/dhershman1/vue-debounce/issues/36) which states you're unable to intercept manually triggered events automatically and instead have to trigger the debounced function at the catching point.
+If a library you are using such as `Vueftify` is already using a specified event, it will block vue debounce from being able to listen to that event.
 
-For example, if you have a custom component that is manually firing an input event back to the parent, you might do something like this:
+As of `v3.1.0` I have significantly improved compatability with these kinds of libraries, however this problem still remains.
 
-```vue
-<CustomComponent
-  v-model="options"
-  @input="debouncedSelectUpdate"
-/>
-```
+For example, Vuetify makes pretty heavy use of the `onblur` event for a lot of it's styles/animatons, so I'd recommend telling vue-debounce to listen for `focusout` instead, if you want debounce to trigger on a blur like event.
 
-Where `debounceSelectedUpdate` looks like this:
-
-```js
-debounceSelectedUpdate () {
-  return debounce(() => {
-    // Taken from issue #36 as an example
-    this.refreshDefaultSelect()
-  }, 300)
-}
-```
-
-
-Or have a method that handles it for you and calls debounce etc. If anyone has advice on handling manual vue events automatically please don't hesitate to share!
+I will keep doing research into a better way to solve this little issue, but for now the improved compatability should help a lot!
