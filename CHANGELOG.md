@@ -1,5 +1,13 @@
 # Change Log
 
+## v3.1.1
+
+### Fixed
+
+- Erroring out when there were no attributes on your element tag [#71](https://github.com/dhershman1/vue-debounce/issues/71)
+- Potential issue if passed events was just an empty array or string would cause debounce to stop listening all together
+  - This falls back on the value of `listenTo`
+
 ## v3.1.0
 
 ### Improved
