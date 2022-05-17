@@ -1,69 +1,7 @@
 import debounce from './debounce'
+import { mapOutListeningEvents, isEmpty, isLocked, shouldFireOnEmpty } from './_internals'
 
-// Helper Functions
-/**
- * Maps through an array of strings and lowercases all of them
- * @param {Array} list an array of strings to map through
- */
-function toLowerMap (list) {
-  return list.map(x => x.toLowerCase())
-}
-
-/**
- * Takes in a value and ensures its wrapped within an array
- * @param {Any} value The value to ensure is an array
- */
-function ensureArray (value) {
-  if (Array.isArray(value)) {
-    return value
-  }
-
-  if (value == null) {
-    return []
-  }
-
-  return [value]
-}
-
-// Figures out the event we are using with the bound element
-function mapOutListeningEvents (attrs, listenTo) {
-  // Make sure attributes exist on the element
-  const elEvents = attrs ? attrs['debounce-events'] : []
-  // If they set an events attribute that overwrites everything
-  if (elEvents && elEvents.length > 0) {
-    // Since they can send in an array or a string we need to be prepared for both
-    if (Array.isArray(elEvents)) {
-      return toLowerMap(elEvents)
-    }
-    return toLowerMap(elEvents.split(','))
-  }
-
-  return toLowerMap(ensureArray(listenTo))
-}
-
-function isEmpty (str) {
-  return str === ''
-}
-
-function isLocked (key, modifiers) {
-  return key === 'Enter' && (!modifiers.lock || modifiers.unlock)
-}
-
-function shouldFireOnEmpty (value, key, modifiers) {
-  return isEmpty(value) && modifiers.fireonempty && (key === 'Enter' || key === ' ')
-}
-
-function determineVersion (v) {
-  const [major] = String(v).split('.')
-
-  if (Number(major) >= 3) {
-    return 'mounted'
-  }
-
-  return 'bind'
-}
-
-export function getDirective (version = '2', {
+export default function ({
   lock = false,
   listenTo = 'keyup',
   defaultTime = '300ms',
@@ -72,7 +10,7 @@ export function getDirective (version = '2', {
   trim = false
 } = {}) {
   return {
-    [determineVersion(version)] (el, {
+    bind (el, {
       value: debouncedFn,
       arg: timer = defaultTime,
       modifiers
@@ -107,5 +45,3 @@ export function getDirective (version = '2', {
     }
   }
 }
-
-export default getDirective()
