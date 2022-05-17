@@ -11,15 +11,12 @@ export interface PluginConfig {
   listenTo?: string | string[]
   defaultTime?: string | number
   fireOnEmpty?: boolean,
+  cancelOnEmpty?: boolean,
   trim?: boolean
 }
 
 interface DirectiveObject {
-  [key: string]: (el: HTMLElement, binding: any) => void
-}
-
-interface GetDirective {
-  (version?: string, opts?: PluginConfig): DirectiveObject
+  [key: string]: (el: HTMLElement, binding: any, vnode: any) => void
 }
 
 interface DebounceInstance<A extends unknown[]> {
@@ -32,7 +29,7 @@ interface Debounce {
 }
 
 declare const debounce: Debounce
-declare const getDirective: GetDirective
+declare const vue3Debounce: (opts: PluginConfig) => DirectiveObject
 
 export interface PluginObject {
   // We could type the Vue object here instead of "any" but that would require making Vue a devDependency and it doesn't seem worth it.
@@ -42,5 +39,5 @@ export interface PluginObject {
 
 declare const pluginObject: PluginObject
 
-export { debounce, DebounceInstance, DirectiveObject, getDirective }
+export { debounce, vue3Debounce, DebounceInstance, DirectiveObject }
 export default pluginObject
