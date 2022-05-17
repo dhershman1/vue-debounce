@@ -1,5 +1,20 @@
 # Change Log
 
+## v4.0.0
+
+### Breaking Changes
+
+- Removed `getDirective` flow there is now a dedicated import for vue 2, and vue 3
+
+### Improved
+
+- Made usage easier, instead of trying to support complex backwards compatability, I simply separated the two into their own imports
+- Usage should be less convoluted
+
+### Fixed
+
+- Vue 3 compatability should be stabalized and working again
+
 ## v3.1.1
 
 ### Fixed
