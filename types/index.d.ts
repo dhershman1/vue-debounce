@@ -20,7 +20,7 @@ interface DirectiveObject {
 }
 
 interface DebounceInstance<A extends unknown[]> {
-  (...args: A): void,
+  (...args: A): void | Promise<void>,
   cancel(): void,
 }
 
