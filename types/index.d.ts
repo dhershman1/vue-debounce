@@ -25,7 +25,7 @@ interface DebounceInstance<A extends unknown[]> {
 }
 
 interface Debounce {
-  <A extends unknown[]>(fn: (...args: A) => void, wait: number | string): DebounceInstance<A>
+  <A extends unknown[]>(fn: (...args: A) => void | Promise<void>, wait: number | string): DebounceInstance<A>
 }
 
 declare const debounce: Debounce
