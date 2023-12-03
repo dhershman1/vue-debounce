@@ -1,6 +1,6 @@
 {
   "name": "vue-debounce",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "A simple vue directive for debounce",
   "main": "dist/vue-debounce.min.js",
   "exports": {
