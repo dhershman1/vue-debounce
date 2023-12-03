@@ -2,13 +2,16 @@
 
 [![npm](https://img.shields.io/npm/v/vue-debounce.svg?style=flat-square)](https://www.npmjs.com/package/vue-debounce)
 [![Downloads](https://img.shields.io/npm/dm/vue-debounce.svg?style=flat-square)](https://www.npmjs.com/package/vue-debounce)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/dhershman1/vue-debounce.svg?style=flat-square&logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/dhershman1/vue-debounce/context:javascript)
 
 A simple to use directive for debounce solutions
 
 It attaches itself to an event for actions
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+
+## Important
+
+As of now [vue2-debounce](https://github.com/dhershman1/vue2-debounce) is published on npm, if you are using vue2 I highly recommend migrating to this package as this one is going to start focusing on vue3 from v5 onward. Consider vue2 support deprecated for this module.
 
 ## Content
 
