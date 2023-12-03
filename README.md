@@ -21,8 +21,7 @@ As of now [vue2-debounce](https://github.com/dhershman1/vue2-debounce) is publis
 - [Modifiers](#modifiers)
 - [Options](#options)
 - [Option Defaults](#option-defaults)
-- [Vue3 Setup](#vue3-setup)
-- [Vue2 Setup](#vue2-setup)
+- [Setup](#setup)
 - [Usage](#usage)
 - [Modifier Usage](#modifier-usage)
 - [Overwriting Events](#overwriting-events)
@@ -86,64 +85,40 @@ import debounce from 'https://unpkg.com/vue-debounce@3.0.2/dist/debounce.min.mjs
 import vueDebounce from 'https://unpkg.com/vue-debounce@3.0.2/dist/vue-debounce.min.mjs';
 ```
 
-## Vue3 Setup
+## Setup
 
-Usage has two flows based on which version of Vue you're currently using, if you use vue2 then those instructions are right below
-
-With vue3 we simply need to import the new directive function `vue3Debounce` this function takes in an object of options (found above)
+With vue3 we simply need to import the new directive function `vueDebounce` this function takes in an object of options (found above)
 
 Using `vue-debounce` Globally:
 ```js
-import { vue3Debounce } from 'vue-debounce'
+import { vueDebounce } from 'vue-debounce'
 import { createApp } from 'vue';
 import App from './App.vue';
 
 const app = createApp(App)
 app
-  .directive('debounce', vue3Debounce({ lock: true }))
+  .directive('debounce', vueDebounce({ lock: true }))
   .mount('#app');
 ```
 
 Using `vue-debounce` at a component level:
 ```js
-import { vue3Debounce } from 'vue-debounce'
+import { vueDebounce } from 'vue-debounce'
 
 export default {
   directives: {
-    debounce: vue3Debounce({ lock: true })
+    debounce: vueDebounce({ lock: true })
   }
 }
 ```
 
-## Vue2 Setup
+Using the setup API in Vue 3 (on a component level):
+```vue
+<script setup>
+import { vueDebounce } from 'vue-debounce'
 
-First make sure we tell vue to use it
-
-```js
-import Vue from 'vue'
-import vueDebounce from 'vue-debounce'
-
-Vue.use(vueDebounce)
-
-// Or if you want to pass in the lock option
-Vue.use(vueDebounce, {
-  lock: true
-})
-
-// Setting a different event to listen to
-Vue.use(vueDebounce, {
-  listenTo: 'input'
-})
-
-// Listening to multiple events
-Vue.use(vueDebounce, {
-  listenTo: ['input', 'keyup']
-})
-
-// Setting a default timer This is set to '300ms' if not specified
-Vue.use(vueDebounce, {
-  defaultTime: '700ms'
-})
+const vDebounce = vueDebounce({ lock: true })
+</script>
 ```
 
 ## Usage
