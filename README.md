@@ -2,7 +2,6 @@
 
 [![npm](https://img.shields.io/npm/v/vue-debounce.svg?style=flat-square)](https://www.npmjs.com/package/vue-debounce)
 [![Downloads](https://img.shields.io/npm/dm/vue-debounce.svg?style=flat-square)](https://www.npmjs.com/package/vue-debounce)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/dhershman1/vue-debounce.svg?style=flat-square&logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/dhershman1/vue-debounce/context:javascript)
 
 A simple to use directive for debounce solutions
 
