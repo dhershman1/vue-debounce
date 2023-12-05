@@ -1,5 +1,5 @@
-import debounce from './debounce'
-import { mapOutListeningEvents, isEmpty, isLocked, shouldFireOnEmpty } from './_internals'
+import debounce from './debounce.js'
+import { mapOutListeningEvents, isEmpty, isLocked, shouldFireOnEmpty } from './_internals.js'
 
 export default function ({
   lock = false,

@@ -29,15 +29,7 @@ interface Debounce {
 }
 
 declare const debounce: Debounce
-declare const vue3Debounce: (opts: PluginConfig) => DirectiveObject
+declare const vueDebounce: (opts: PluginConfig) => DirectiveObject
 
-export interface PluginObject {
-  // We could type the Vue object here instead of "any" but that would require making Vue a devDependency and it doesn't seem worth it.
-  // Considering a user of this code will never call install directly, it will be called by Vue.
-  install (Vue: any, pluginConfig?: PluginConfig): void
-}
-
-declare const pluginObject: PluginObject
-
-export { debounce, vue3Debounce, DebounceInstance, DirectiveObject }
-export default pluginObject
+export { debounce, vueDebounce, DebounceInstance, DirectiveObject }
+export default vueDebounce

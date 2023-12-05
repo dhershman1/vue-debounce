@@ -6,6 +6,10 @@
 
 - Remove support for Vue 2
   - If you need to continue supporting Vue2 please switch to the [vue2-debounce](https://github.com/dhershman1/vue2-debounce) package or stay of v4 of this one
+- vue-debounce is now registered as a ES `module` instead of a cjs package
+  - This helps the transition over to Vue3
+  - This will help keep the typing system clean
+- CDN Support is no longer guaranteed with the package being a module now
 
 ### Fixed
 

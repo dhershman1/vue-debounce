@@ -21,10 +21,10 @@ As of now [vue2-debounce](https://github.com/dhershman1/vue2-debounce) is publis
 - [Options](#options)
 - [Option Defaults](#option-defaults)
 - [Setup](#setup)
+- [Use Just Debounce](#using-just-debounce)
 - [Usage](#usage)
 - [Modifier Usage](#modifier-usage)
 - [Overwriting Events](#overwriting-events)
-- [Use Just Debounce](#using-just-debounce)
 - [Typescript Support](#typescript-support)
 - [Caveats](#caveats)
 
@@ -72,25 +72,13 @@ npm i vue-debounce
 }
 ```
 
-## CDN Support
-
-As of `v3.0.2` CDN support is fixed to work with ESM projects. If you need to use the esm setup simply import them like so:
-
-```js
-import debounce from 'https://unpkg.com/vue-debounce@3.0.2/dist/debounce.min.mjs';
-
-// Or all of vue-debounce
-
-import vueDebounce from 'https://unpkg.com/vue-debounce@3.0.2/dist/vue-debounce.min.mjs';
-```
-
 ## Setup
 
 With vue3 we simply need to import the new directive function `vueDebounce` this function takes in an object of options (found above)
 
 Using `vue-debounce` Globally:
 ```js
-import { vueDebounce } from 'vue-debounce'
+import vueDebounce from 'vue-debounce'
 import { createApp } from 'vue';
 import App from './App.vue';
 
@@ -100,9 +88,18 @@ app
   .mount('#app');
 ```
 
-Using `vue-debounce` at a component level:
+Using the setup API at the component level:
+```vue
+<script setup>
+import vueDebounce from 'vue-debounce'
+
+const vDebounce = vueDebounce({ lock: true })
+</script>
+```
+
+Using `vue-debounce` at a component level using the option API:
 ```js
-import { vueDebounce } from 'vue-debounce'
+import vueDebounce from 'vue-debounce'
 
 export default {
   directives: {
@@ -111,14 +108,26 @@ export default {
 }
 ```
 
-Using the setup API in Vue 3 (on a component level):
-```vue
-<script setup>
-import { vueDebounce } from 'vue-debounce'
+## Using Just Debounce
 
-const vDebounce = vueDebounce({ lock: true })
-</script>
+With Vue-debounce you're also able to just use the debouncing function.
+
+Simply require the debounce file.
+
+```js
+import { debounce } from 'vue-debounce'
 ```
+
+The `debounce` function returns a function back which in turn is debounced, so you can set them up ahead of time:
+
+```js
+const dFn = debounce(val => console.log('normal format', val), '400ms')
+
+dFn(10) // => 'normal format' 10
+// Or
+debounce(val => console.log('just a number!'), 400)(10) // => 'just a number!' 10
+```
+
 
 ## Usage
 
@@ -196,26 +205,6 @@ export default {
   }
 }
 </script>
-```
-
-## Using Just Debounce
-
-With Vue-debounce you're also able to just use the debouncing function.
-
-Simply require the debounce file.
-
-```js
-import { debounce } from 'vue-debounce'
-```
-
-The `debounce` function returns a function back which in turn is debounced, so you can set them up ahead of time:
-
-```js
-const dFn = debounce(val => console.log('normal format', val), '400ms')
-
-dFn(10) // => 'normal format' 10
-// Or
-debounce(val => console.log('just a number!'), 400)(10) // => 'just a number!' 10
 ```
 
 ## Typescript Support

@@ -1,7 +1,9 @@
-import debounce from './debounce'
-import vueDebounce from './directive'
+import debounce from './debounce.js'
+import vueDebounce from './directive.js'
 
-export default {
+export {
   debounce,
   vueDebounce
 }
+
+export default vueDebounce

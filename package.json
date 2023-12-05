@@ -2,17 +2,12 @@
   "name": "vue-debounce",
   "version": "5.0.0",
   "description": "A simple vue directive for debounce",
-  "main": "dist/vue-debounce.min.js",
-  "exports": {
-    "import": "./dist/vue-debounce.min.mjs",
-    "require": "./dist/vue-debounce.min.js"
-  },
+  "module": "src/index.js",
   "types": "types/index.d.ts",
+  "type": "module",
   "scripts": {
-    "test": "tape -r esm tests/test.js | tap-on",
-    "prepack": "npm run lint && npm run build",
-    "build": "rollup -c --bundleConfigAsCjs",
-    "watch": "rollup -c -w",
+    "test": "tape tests/test.js | tap-on",
+    "prepack": "npm run lint && npm t",
     "lint": "standard src/*.js",
     "lint:fix": "standard --fix src/*.js"
   },
@@ -45,14 +40,6 @@
   },
   "homepage": "https://github.com/dhershman1/vue-debounce#readme",
   "devDependencies": {
-    "@babel/core": "7.23.5",
-    "@babel/preset-env": "7.23.5",
-    "@rollup/plugin-babel": "6.0.4",
-    "@rollup/plugin-terser": "^0.4.4",
-    "chokidar": "3.5.3",
-    "esm": "3.2.25",
-    "rollup": "^4.6.1",
-    "rollup-plugin-filesize": "10.0.0",
     "standard": "^17.1.0",
     "tap-on": "0.3.1",
     "tape": "^5.7.2"
