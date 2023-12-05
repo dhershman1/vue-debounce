@@ -1,14 +1,9 @@
-import debounce from './debounce'
-import vueDebounce from './directive'
-import vue3Debounce from './vue3_directive'
+import debounce from './debounce.js'
+import vueDebounce from './directive.js'
 
 export {
   debounce,
-  vue3Debounce
+  vueDebounce
 }
 
-export default {
-  install (Vue, opts = {}) {
-    Vue.directive('debounce', vueDebounce(opts))
-  }
-}
+export default vueDebounce

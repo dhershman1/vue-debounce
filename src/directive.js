@@ -1,5 +1,5 @@
-import debounce from './debounce'
-import { mapOutListeningEvents, isEmpty, isLocked, shouldFireOnEmpty } from './_internals'
+import debounce from './debounce.js'
+import { mapOutListeningEvents, isEmpty, isLocked, shouldFireOnEmpty } from './_internals.js'
 
 export default function ({
   lock = false,
@@ -10,7 +10,7 @@ export default function ({
   trim = false
 } = {}) {
   return {
-    bind (el, {
+    created (el, {
       value: debouncedFn,
       arg: timer = defaultTime,
       modifiers
@@ -21,7 +21,7 @@ export default function ({
         fireonempty: fireOnEmpty,
         cancelonempty: cancelOnEmpty
       }, modifiers)
-      const events = mapOutListeningEvents(vnode.data.attrs, listenTo)
+      const events = mapOutListeningEvents(vnode.props, listenTo)
       const fn = debounce(e => {
         debouncedFn(e.target.value, e)
       }, timer)

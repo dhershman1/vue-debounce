@@ -1,5 +1,5 @@
 import test from 'tape'
-import debounce from '../src/debounce'
+import debounce from '../src/debounce.js'
 
 test('Handles defaults', t => {
   const runner = debounce((val) => {
@@ -62,8 +62,8 @@ test('Inherits parent scope', t => {
           const l = arguments.length
           return l
             ? l > 1
-                ? fn.apply(ctx, arguments)
-                : fn.call(ctx, a)
+              ? fn.apply(ctx, arguments)
+              : fn.call(ctx, a)
             : fn.call(ctx)
         }
       }
