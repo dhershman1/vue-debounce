@@ -11,6 +11,17 @@
 
 - README now reflects how to use vue-debounce with only vue3
 
+## v4.0.1
+
+### Improved
+
+- Added PR #79 for export support
+- Added PR #82 for fixed typings
+
+### Chores
+
+- Dependency updates
+
 ## v4.0.0
 
 ### Breaking Changes
