@@ -20,6 +20,7 @@ As of now [vue2-debounce](https://github.com/dhershman1/vue2-debounce) is publis
 - [Modifiers](#modifiers)
 - [Options](#options)
 - [Option Defaults](#option-defaults)
+- [CDN Support](#cdn-support)
 - [Setup](#setup)
 - [Use Just Debounce](#using-just-debounce)
 - [Usage](#usage)
@@ -70,6 +71,17 @@ npm i vue-debounce
   fireOnEmpty: false,
   trim: false
 }
+```
+
+## CDN Support
+
+You can use vue debounce via CDN like so: (It is recommended that you don't use `@latest` however)
+
+```html
+<script src="https://unpkg.com/vue-debounce@latest/dist/vue-debounce.min.js">
+<script>
+  vueDebounce.vueDebounce({ lock: true })
+</script>
 ```
 
 ## Setup

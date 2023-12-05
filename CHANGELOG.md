@@ -9,7 +9,6 @@
 - vue-debounce is now registered as a ES `module` instead of a cjs package
   - This helps the transition over to Vue3
   - This will help keep the typing system clean
-- CDN Support is no longer guaranteed with the package being a module now
 
 ### Fixed
 

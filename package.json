@@ -5,9 +5,13 @@
   "module": "src/index.js",
   "types": "types/index.d.ts",
   "type": "module",
+  "unpkg": "dist/vueDebounce.min.js",
+  "jsdelivr": "dist/vueDebounce.min.js",
   "scripts": {
     "test": "tape tests/test.js | tap-on",
-    "prepack": "npm run lint && npm t",
+    "prepack": "npm run lint && npm run build",
+    "build": "rollup -c",
+    "watch": "rollup -c -w",
     "lint": "standard src/*.js",
     "lint:fix": "standard --fix src/*.js"
   },
@@ -40,6 +44,12 @@
   },
   "homepage": "https://github.com/dhershman1/vue-debounce#readme",
   "devDependencies": {
+    "@babel/core": "7.23.5",
+    "@babel/preset-env": "7.23.5",
+    "@rollup/plugin-babel": "6.0.4",
+    "@rollup/plugin-terser": "0.4.4",
+    "rollup": "^4.6.1",
+    "rollup-plugin-filesize": "9.1.2",
     "standard": "^17.1.0",
     "tap-on": "0.3.1",
     "tape": "^5.7.2"
