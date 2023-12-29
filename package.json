@@ -5,7 +5,8 @@
   "main": "dist/vue-debounce.min.js",
   "exports": {
     "import": "./dist/vue-debounce.min.mjs",
-    "require": "./dist/vue-debounce.min.js"
+    "require": "./dist/vue-debounce.min.js",
+    "types": "./types/index.d.ts"
   },
   "types": "types/index.d.ts",
   "scripts": {
