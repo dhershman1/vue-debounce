@@ -20,12 +20,12 @@ As of now [vue2-debounce](https://github.com/dhershman1/vue2-debounce) is publis
 - [Modifiers](#modifiers)
 - [Options](#options)
 - [Option Defaults](#option-defaults)
-- [Vue3 Setup](#vue3-setup)
-- [Vue2 Setup](#vue2-setup)
+- [CDN Support](#cdn-support)
+- [Setup](#setup)
+- [Use Just Debounce](#using-just-debounce)
 - [Usage](#usage)
 - [Modifier Usage](#modifier-usage)
 - [Overwriting Events](#overwriting-events)
-- [Use Just Debounce](#using-just-debounce)
 - [Typescript Support](#typescript-support)
 - [Caveats](#caveats)
 
@@ -75,75 +75,71 @@ npm i vue-debounce
 
 ## CDN Support
 
-As of `v3.0.2` CDN support is fixed to work with ESM projects. If you need to use the esm setup simply import them like so:
+You can use vue debounce via CDN like so: (It is recommended that you don't use `@latest` however)
 
-```js
-import debounce from 'https://unpkg.com/vue-debounce@3.0.2/dist/debounce.min.mjs';
-
-// Or all of vue-debounce
-
-import vueDebounce from 'https://unpkg.com/vue-debounce@3.0.2/dist/vue-debounce.min.mjs';
+```html
+<script src="https://unpkg.com/vue-debounce@latest/dist/vue-debounce.min.js">
+<script>
+  vueDebounce.vueDebounce({ lock: true })
+</script>
 ```
 
-## Vue3 Setup
+## Setup
 
-Usage has two flows based on which version of Vue you're currently using, if you use vue2 then those instructions are right below
-
-With vue3 we simply need to import the new directive function `vue3Debounce` this function takes in an object of options (found above)
+With vue3 we simply need to import the new directive function `vueDebounce` this function takes in an object of options (found above)
 
 Using `vue-debounce` Globally:
 ```js
-import { vue3Debounce } from 'vue-debounce'
+import vueDebounce from 'vue-debounce'
 import { createApp } from 'vue';
 import App from './App.vue';
 
 const app = createApp(App)
 app
-  .directive('debounce', vue3Debounce({ lock: true }))
+  .directive('debounce', vueDebounce({ lock: true }))
   .mount('#app');
 ```
 
-Using `vue-debounce` at a component level:
+Using the setup API at the component level:
+```vue
+<script setup>
+import vueDebounce from 'vue-debounce'
+
+const vDebounce = vueDebounce({ lock: true })
+</script>
+```
+
+Using `vue-debounce` at a component level using the option API:
 ```js
-import { vue3Debounce } from 'vue-debounce'
+import vueDebounce from 'vue-debounce'
 
 export default {
   directives: {
-    debounce: vue3Debounce({ lock: true })
+    debounce: vueDebounce({ lock: true })
   }
 }
 ```
 
-## Vue2 Setup
+## Using Just Debounce
 
-First make sure we tell vue to use it
+With Vue-debounce you're also able to just use the debouncing function.
+
+Simply require the debounce file.
 
 ```js
-import Vue from 'vue'
-import vueDebounce from 'vue-debounce'
-
-Vue.use(vueDebounce)
-
-// Or if you want to pass in the lock option
-Vue.use(vueDebounce, {
-  lock: true
-})
-
-// Setting a different event to listen to
-Vue.use(vueDebounce, {
-  listenTo: 'input'
-})
-
-// Listening to multiple events
-Vue.use(vueDebounce, {
-  listenTo: ['input', 'keyup']
-})
-
-// Setting a default timer This is set to '300ms' if not specified
-Vue.use(vueDebounce, {
-  defaultTime: '700ms'
-})
+import { debounce } from 'vue-debounce'
 ```
+
+The `debounce` function returns a function back which in turn is debounced, so you can set them up ahead of time:
+
+```js
+const dFn = debounce(val => console.log('normal format', val), '400ms')
+
+dFn(10) // => 'normal format' 10
+// Or
+debounce(val => console.log('just a number!'), 400)(10) // => 'just a number!' 10
+```
+
 
 ## Usage
 
@@ -221,26 +217,6 @@ export default {
   }
 }
 </script>
-```
-
-## Using Just Debounce
-
-With Vue-debounce you're also able to just use the debouncing function.
-
-Simply require the debounce file.
-
-```js
-import { debounce } from 'vue-debounce'
-```
-
-The `debounce` function returns a function back which in turn is debounced, so you can set them up ahead of time:
-
-```js
-const dFn = debounce(val => console.log('normal format', val), '400ms')
-
-dFn(10) // => 'normal format' 10
-// Or
-debounce(val => console.log('just a number!'), 400)(10) // => 'just a number!' 10
 ```
 
 ## Typescript Support
