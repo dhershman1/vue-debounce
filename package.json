@@ -3,6 +3,7 @@
   "version": "5.0.0",
   "description": "A simple vue directive for debounce",
   "module": "src/index.js",
+  "main": "src/index.js",
   "types": "types/index.d.ts",
   "type": "module",
   "unpkg": "dist/vueDebounce.min.js",
