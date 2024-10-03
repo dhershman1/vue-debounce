@@ -1,5 +1,11 @@
 # Change Log
 
+## v5.0.1
+
+### Fixed
+
+- Package.json now contains a `main` and fixes #89 ([@andreclemente](https://github.com/andreclemente))
+
 ## v5.0.0
 
 ### Breaking Changes

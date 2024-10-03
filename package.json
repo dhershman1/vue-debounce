@@ -1,6 +1,6 @@
 {
   "name": "vue-debounce",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "A simple vue directive for debounce",
   "module": "src/index.js",
   "main": "src/index.js",
