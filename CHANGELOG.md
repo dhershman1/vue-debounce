@@ -34,6 +34,7 @@
 
 - Updated dev dependencies and resolved outstanding `npm audit` findings
 - Added `vue` as an explicit dev dependency for local type resolution, instead of relying on it being auto-installed as a peer dependency
+- Updated `README` to match all the v6 changes
 
 ## v5.0.1
 

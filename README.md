@@ -11,7 +11,7 @@ It attaches itself to an event for actions
 
 ## Important
 
-As of now [vue2-debounce](https://github.com/dhershman1/vue2-debounce) is published on npm, if you are using vue2 I highly recommend migrating to this package as this one is going to start focusing on vue3 from v5 onward. Consider vue2 support deprecated for this module.
+This package is Vue 3 only as of v5.0.0. If you're on Vue 2, use [vue2-debounce](https://github.com/dhershman1/vue2-debounce) instead - Vue 2 support here is deprecated.
 
 ## Content
 
@@ -22,7 +22,7 @@ As of now [vue2-debounce](https://github.com/dhershman1/vue2-debounce) is publis
 - [Option Defaults](#option-defaults)
 - [CDN Support](#cdn-support)
 - [Setup](#setup)
-- [Use Just Debounce](#using-just-debounce)
+- [Using Just Debounce](#using-just-debounce)
 - [Usage](#usage)
 - [Modifier Usage](#modifier-usage)
 - [Overwriting Events](#overwriting-events)
@@ -34,9 +34,10 @@ As of now [vue2-debounce](https://github.com/dhershman1/vue2-debounce) is publis
 - Dynamic debouncing for input based requests
 - Easy to use, just place it into your vue instance and attach it to your inputs/components
 - Self regulating no need to worry about it, set it and forget it
-- Multiple time formats supported (miliseconds and seconds)
+- Multiple time formats supported (milliseconds and seconds)
 - Enter key support to automatically fire the desired function when the user hits the enter key in the desired input (Can also be disabled)
 - Supports the ability to have multiple event listeners, and specify events at the element level
+- Reacts to changed bindings on re-render: a new bound function, time, or `debounce-events` takes effect instead of staying frozen to whatever was there at mount time
 
 ## Installation
 ```
@@ -59,6 +60,7 @@ npm i vue-debounce
   - This is given to the `addEventListener` method attached to the element
 - `defaultTime` : `String` - Set the default timer for debounce directives that you don't give a time to
 - `fireOnEmpty` : `Boolean` - Tells debounce that if the input is empty, then fire the function immediately
+- `cancelOnEmpty` : `Boolean` - This works the same way as the modifier does, however using the option will cancel the debounce for _ALL_ debounced inputs within that vue instance when they're emptied, where as using the modifier only cancels the one it's attached to
 - `trim` : `Boolean` - Tells debounce to trim out white space using the `String.prototype.trim()` function
 
 ## Option Defaults
@@ -69,6 +71,7 @@ npm i vue-debounce
   listenTo: 'keyup',
   defaultTime: '300ms',
   fireOnEmpty: false,
+  cancelOnEmpty: false,
   trim: false
 }
 ```
@@ -78,7 +81,7 @@ npm i vue-debounce
 You can use vue debounce via CDN like so: (It is recommended that you don't use `@latest` however)
 
 ```html
-<script src="https://unpkg.com/vue-debounce@latest/dist/vue-debounce.min.js">
+<script src="https://unpkg.com/vue-debounce@latest/dist/vue-debounce.min.js"></script>
 <script>
   vueDebounce.vueDebounce({ lock: true })
 </script>
@@ -137,9 +140,14 @@ const dFn = debounce(val => console.log('normal format', val), '400ms')
 
 dFn(10) // => 'normal format' 10
 // Or
-debounce(val => console.log('just a number!'), 400)(10) // => 'just a number!' 10
+debounce(val => console.log('just a number!', val), 400)(10) // => 'just a number!' 10
 ```
 
+Note that `debounce` doesn't bind a `this` context to the function you pass it, however if you need one, bind it yourself before passing the function in:
+
+```js
+const dFn = debounce(myMethod.bind(this), '300ms')
+```
 
 ## Usage
 
@@ -192,11 +200,11 @@ As of Version 1.2.0 you can assign specific event listeners to specific inputs. 
 
 Example:
 ```vue
-// This can accept an array or a single string when using the bind `:` syntax
+<!-- This can accept an array or a single string when using the bind `:` syntax -->
 <input v-debounce:1s="myFunc" :debounce-events="['click', 'keydown']">
 <input v-debounce:1s="myFunc" :debounce-events="'click'">
 
-// You can also just use it as an attribute, though if passing multiple events binding it is preferred
+<!-- You can also just use it as an attribute, though if passing multiple events binding it is preferred -->
 <input v-debounce:1s="myfunc" debounce-events="click">
 ```
 
@@ -220,26 +228,28 @@ export default {
 ```
 
 ## Typescript Support
-While this project is not written in typescript, we do define types in the `types` directory. Unfortunately the way Vue is currently typed
-the only type support you will get is when you `Vue.use(vueDebounce)`.
+While this project is not written in typescript, we do define types in the `types` directory. These are typed against Vue 3's own directive types (`ObjectDirective`/`DirectiveBinding`), so the options, the bound callback, and the known modifiers (`lock`, `unlock`, `fireonempty`, `cancelonempty`, `trim`) are all typed, not just `any`.
 
 i.e.
 
 ```typescript
-import Vue from 'vue'
+import { createApp } from 'vue'
 import vueDebounce, { PluginConfig, debounce } from 'vue-debounce'
+import App from './App.vue'
 
 debounce(() => console.log('just a number!'), 400)
 debounce(() => console.log('normal format'), '400ms')
 
-Vue.use<PluginConfig>(vueDebounce, { lock: true, defaultTime: '400ms', listenTo: 'keyup' })
-```
+const options: PluginConfig = { lock: true, defaultTime: '400ms', listenTo: 'keyup' }
 
-Hopefully in the future Vue will allow directives to type the modifiers and values that are accepted.
+createApp(App)
+  .directive('debounce', vueDebounce(options))
+  .mount('#app')
+```
 
 ## Caveats
 
-If a library you are using such as `Vueftify` is already using a specified event, it will block vue debounce from being able to listen to that event.
+If a library you are using such as `Vuetify` is already using a specified event, it will block vue debounce from being able to listen to that event.
 
 As of `v3.1.0` I have significantly improved compatability with these kinds of libraries, however this problem still remains.
 
