@@ -1,57 +1,58 @@
-import test from 'tape'
+import test from 'node:test'
+import assert from 'node:assert/strict'
 import debounce from '../src/debounce.js'
 
-test('Handles defaults', t => {
+test('Handles defaults', (t, done) => {
   const runner = debounce((val) => {
-    t.ok(val)
-    t.same(val, 'testing')
-    t.end()
+    assert.ok(val)
+    assert.equal(val, 'testing')
+    done()
   })
 
   runner('testing')
 })
 
-test('Handles number type', t => {
+test('Handles number type', (t, done) => {
   const runner = debounce(val => {
-    t.ok(val)
-    t.same(val, 'testing')
-    t.end()
+    assert.ok(val)
+    assert.equal(val, 'testing')
+    done()
   }, 400)
 
   runner('testing')
 })
 
-test('Handles no format set', t => {
+test('Handles no format set', (t, done) => {
   const runner = debounce(val => {
-    t.ok(val)
-    t.same(val, 'testing')
-    t.end()
+    assert.ok(val)
+    assert.equal(val, 'testing')
+    done()
   }, '500')
 
   runner('testing')
 })
 
-test('Handles sepcific time', t => {
+test('Handles sepcific time', (t, done) => {
   const runner = debounce((val) => {
-    t.ok(val)
-    t.same(val, 'testing')
-    t.end()
+    assert.ok(val)
+    assert.equal(val, 'testing')
+    done()
   }, '500ms')
 
   runner('testing')
 })
 
-test('Handles seconds', t => {
+test('Handles seconds', (t, done) => {
   const runner = debounce((val) => {
-    t.ok(val)
-    t.same(val, 'testing')
-    t.end()
+    assert.ok(val)
+    assert.equal(val, 'testing')
+    done()
   }, '1s')
 
   runner('testing')
 })
 
-test('Inherits parent scope', t => {
+test('Inherits parent scope', (t, done) => {
   const runner = function (val) {
     const Someclass = function ($options) {
       this.somevalue = ''
@@ -83,9 +84,9 @@ test('Inherits parent scope', t => {
     const vm = new Someclass({
       methods: {
         somefunction: debounce(function () {
-          t.ok(val)
-          t.same(this.somevalue, 'testing')
-          t.end()
+          assert.ok(val)
+          assert.equal(this.somevalue, 'testing')
+          done()
         })
       }
     })
@@ -97,7 +98,7 @@ test('Inherits parent scope', t => {
   runner('testing')
 })
 
-test('Collapses rapid calls into a single invocation', t => {
+test('Collapses rapid calls into a single invocation', (t, done) => {
   let calls = 0
   const runner = debounce(() => {
     calls++
@@ -110,15 +111,15 @@ test('Collapses rapid calls into a single invocation', t => {
   runner()
 
   setTimeout(() => {
-    t.same(calls, 1)
-    t.end()
+    assert.equal(calls, 1)
+    done()
   }, 150)
 })
 
-test('Fires with the arguments of the last call (trailing edge)', t => {
+test('Fires with the arguments of the last call (trailing edge)', (t, done) => {
   const runner = debounce(val => {
-    t.same(val, 'last')
-    t.end()
+    assert.equal(val, 'last')
+    done()
   }, '50ms')
 
   runner('first')
@@ -126,7 +127,7 @@ test('Fires with the arguments of the last call (trailing edge)', t => {
   runner('last')
 })
 
-test('cancel() prevents a pending invocation from firing', t => {
+test('cancel() prevents a pending invocation from firing', (t, done) => {
   let fired = false
   const runner = debounce(() => {
     fired = true
@@ -136,15 +137,15 @@ test('cancel() prevents a pending invocation from firing', t => {
   runner.cancel()
 
   setTimeout(() => {
-    t.same(fired, false)
-    t.end()
+    assert.equal(fired, false)
+    done()
   }, 100)
 })
 
-test('cancel() does not affect a later call', t => {
+test('cancel() does not affect a later call', (t, done) => {
   const runner = debounce(val => {
-    t.same(val, 'second')
-    t.end()
+    assert.equal(val, 'second')
+    done()
   }, '50ms')
 
   runner('first')
@@ -152,24 +153,24 @@ test('cancel() does not affect a later call', t => {
   runner('second')
 })
 
-test('Time units are case-insensitive', t => {
+test('Time units are case-insensitive', (t, done) => {
   let calls = 0
   const start = Date.now()
   const runner = debounce(() => {
     calls++
-    t.same(calls, 1)
-    t.ok(Date.now() - start >= 90, 'waited roughly the configured time instead of firing immediately')
-    t.end()
+    assert.equal(calls, 1)
+    assert.ok(Date.now() - start >= 90, 'waited roughly the configured time instead of firing immediately')
+    done()
   }, '100MS')
 
   runner()
 })
 
-test('Seconds unit is case-insensitive', t => {
+test('Seconds unit is case-insensitive', (t, done) => {
   const start = Date.now()
   const runner = debounce(() => {
-    t.ok(Date.now() - start >= 90, 'waited roughly the configured time instead of firing immediately')
-    t.end()
+    assert.ok(Date.now() - start >= 90, 'waited roughly the configured time instead of firing immediately')
+    done()
   }, '0.1S')
 
   runner()

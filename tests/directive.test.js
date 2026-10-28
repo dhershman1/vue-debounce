@@ -1,4 +1,5 @@
-import test from 'tape'
+import test from 'node:test'
+import assert from 'node:assert/strict'
 import vueDebounce from '../src/directive.js'
 
 // Minimal stand-in for a DOM element, just enough for the directive to work with
@@ -25,14 +26,14 @@ function makeEvent (value, key) {
   return { key, target: { value } }
 }
 
-test('fires the bound callback with the input value after the wait', t => {
+test('fires the bound callback with the input value after the wait', (t, done) => {
   const directive = vueDebounce({})
   const el = makeEl()
 
   directive.created(el, {
     value: (value) => {
-      t.same(value, 'hello')
-      t.end()
+      assert.equal(value, 'hello')
+      done()
     },
     arg: '20ms',
     modifiers: {}
@@ -41,7 +42,7 @@ test('fires the bound callback with the input value after the wait', t => {
   el.fire('keyup', makeEvent('hello', 'h'))
 })
 
-test('rapid events before the wait elapses only fire the callback once, with the last value', t => {
+test('rapid events before the wait elapses only fire the callback once, with the last value', (t, done) => {
   const directive = vueDebounce({})
   const el = makeEl()
   let calls = 0
@@ -49,7 +50,7 @@ test('rapid events before the wait elapses only fire the callback once, with the
   directive.created(el, {
     value: (value) => {
       calls++
-      t.same(value, 'c')
+      assert.equal(value, 'c')
     },
     arg: '30ms',
     modifiers: {}
@@ -60,19 +61,19 @@ test('rapid events before the wait elapses only fire the callback once, with the
   el.fire('keyup', makeEvent('c', 'c'))
 
   setTimeout(() => {
-    t.same(calls, 1)
-    t.end()
+    assert.equal(calls, 1)
+    done()
   }, 80)
 })
 
-test('trim option trims the value delivered to the callback', t => {
+test('trim option trims the value delivered to the callback', (t, done) => {
   const directive = vueDebounce({ trim: true })
   const el = makeEl()
 
   directive.created(el, {
     value: (value) => {
-      t.same(value, 'hello')
-      t.end()
+      assert.equal(value, 'hello')
+      done()
     },
     arg: '20ms',
     modifiers: {}
@@ -81,32 +82,32 @@ test('trim option trims the value delivered to the callback', t => {
   el.fire('keyup', makeEvent('  hello  ', 'o'))
 })
 
-test('trim option does not throw on an element without a value (e.g. listenTo: click)', t => {
+test('trim option does not throw on an element without a value (e.g. listenTo: click)', (t, done) => {
   const directive = vueDebounce({ trim: true, listenTo: 'click' })
   const el = makeEl()
 
   directive.created(el, {
     value: () => {
-      t.pass('callback ran without throwing')
-      t.end()
+      assert.ok(true, 'callback ran without throwing')
+      done()
     },
     arg: '20ms',
     modifiers: {}
   }, { props: {} })
 
-  t.doesNotThrow(() => {
+  assert.doesNotThrow(() => {
     el.fire('click', { key: undefined, target: {} })
   })
 })
 
-test('Enter immediately fires the callback by default (unlocked)', t => {
+test('Enter immediately fires the callback by default (unlocked)', (t, done) => {
   const directive = vueDebounce({})
   const el = makeEl()
 
   directive.created(el, {
     value: (value) => {
-      t.same(value, 'typed')
-      t.end()
+      assert.equal(value, 'typed')
+      done()
     },
     arg: '10s',
     modifiers: {}
@@ -115,7 +116,7 @@ test('Enter immediately fires the callback by default (unlocked)', t => {
   el.fire('keyup', makeEvent('typed', 'Enter'))
 })
 
-test('lock modifier prevents Enter from firing immediately', t => {
+test('lock modifier prevents Enter from firing immediately', (t, done) => {
   const directive = vueDebounce({})
   const el = makeEl()
   let fired = false
@@ -127,15 +128,15 @@ test('lock modifier prevents Enter from firing immediately', t => {
   }, { props: {} })
 
   el.fire('keyup', makeEvent('typed', 'Enter'))
-  t.notOk(fired, 'did not fire immediately on Enter while locked')
+  assert.ok(!fired, 'did not fire immediately on Enter while locked')
 
   setTimeout(() => {
-    t.ok(fired, 'still fires after the debounce wait elapses')
-    t.end()
+    assert.ok(fired, 'still fires after the debounce wait elapses')
+    done()
   }, 50)
 })
 
-test('cancelonempty modifier cancels a pending call when the value is emptied', t => {
+test('cancelonempty modifier cancels a pending call when the value is emptied', (t, done) => {
   const directive = vueDebounce({})
   const el = makeEl()
   let fired = false
@@ -150,31 +151,31 @@ test('cancelonempty modifier cancels a pending call when the value is emptied', 
   el.fire('keyup', makeEvent('', 'Backspace'))
 
   setTimeout(() => {
-    t.notOk(fired, 'cancelled instead of firing')
-    t.end()
+    assert.ok(!fired, 'cancelled instead of firing')
+    done()
   }, 80)
 })
 
-test('debounce-events attribute overrides the configured listenTo', t => {
+test('debounce-events attribute overrides the configured listenTo', (t, done) => {
   const directive = vueDebounce({ listenTo: 'keyup' })
   const el = makeEl()
 
   directive.created(el, {
     value: (value) => {
-      t.same(value, 'clicked')
-      t.end()
+      assert.equal(value, 'clicked')
+      done()
     },
     arg: '10ms',
     modifiers: {}
   }, { props: { 'debounce-events': 'click' } })
 
-  t.same(el.listenerCount('keyup'), 0)
-  t.same(el.listenerCount('click'), 1)
+  assert.equal(el.listenerCount('keyup'), 0)
+  assert.equal(el.listenerCount('click'), 1)
 
   el.fire('click', makeEvent('clicked'))
 })
 
-test('unmounted cancels any pending call and removes the event listeners', t => {
+test('unmounted cancels any pending call and removes the event listeners', (t, done) => {
   const directive = vueDebounce({})
   const el = makeEl()
   let fired = false
@@ -186,14 +187,14 @@ test('unmounted cancels any pending call and removes the event listeners', t => 
   }, { props: {} })
 
   el.fire('keyup', makeEvent('typed', 'd'))
-  t.same(el.listenerCount('keyup'), 1)
+  assert.equal(el.listenerCount('keyup'), 1)
 
   directive.unmounted(el)
 
-  t.same(el.listenerCount('keyup'), 0, 'listener removed')
+  assert.equal(el.listenerCount('keyup'), 0, 'listener removed')
 
   setTimeout(() => {
-    t.notOk(fired, 'pending debounce was cancelled on unmount')
-    t.end()
+    assert.ok(!fired, 'pending debounce was cancelled on unmount')
+    done()
   }, 60)
 })
