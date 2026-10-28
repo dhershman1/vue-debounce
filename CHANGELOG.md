@@ -1,5 +1,35 @@
 # Change Log
 
+## v6.0.0
+
+### Breaking Changes
+
+- Changed how `fireonempty` decides when to fire immediately. It previously only triggered when the key that emptied the field was `Enter` or `Space`, so clearing an input with Backspace/Delete (the normal way) just fell through to the regular debounce wait instead of firing right away as documented
+  - `fireonempty` now fires immediately whenever the value becomes empty, regardless of which key (or other event) caused it
+  - Please open issues ASAP if this functionality is not working as expected
+
+### Fixed
+
+- Case-sensitive time units (`'300MS'`, `'1S'`, etc.) silently resolved to `NaN` and fired almost immediately instead of debouncing. Units are now parsed case-insensitively
+- Removed a dead leading-edge branch in `debounce` that could never execute
+- The directive now cleans up after itself: an `unmounted` hook cancels any pending debounce and removes its event listeners, instead of leaking a listener and a timer that could fire after the element is gone
+- The `trim` option now actually trims the value handed to your callback. Previously it only affected the internal empty-value checks and always delivered the raw, untrimmed value
+- The `trim` option no longer throws when used on an element with no `.value` (e.g. `listenTo: 'click'` on a button)
+- `unpkg`/`jsdelivr` pointed at `dist/vueDebounce.min.js`, this now correctly points to `dist/vue-debounce.min.js`
+- `main` pointed straight to a src file with no `exports` map, this broke with `require('vue-debounce')` because a proper CJS build wasn't being used
+
+### Improved
+
+- Added a `files` allowlist to `package.json` so only `src`, `dist`, and `types` are published - the published tarball no longer includes `.babelrc`, CI config, `tests/`, etc.
+- Migrated CI from CircleCI to GitHub Actions, running against `lts/*` and `current` Node
+- Swapped the test runner from `tape`/`tap-on` to Node's built-in `node:test`
+- Replaced `rollup-plugin-filesize` with a small in-house implementation
+- Added test coverage for `_internals.js` and the directive itself, which previously had none
+
+### Chores
+
+- Updated dev dependencies and resolved outstanding `npm audit` findings
+
 ## v5.0.1
 
 ### Fixed
