@@ -192,6 +192,76 @@ test('debounce-events attribute overrides the configured listenTo', (t, done) =>
   el.fire('click', makeEvent('clicked'))
 })
 
+test('updated rebinds to a new callback instead of keeping the mount-time one', (t, done) => {
+  const directive = vueDebounce({})
+  const el = makeEl()
+
+  directive.created(el, {
+    value: () => assert.fail('the original mount-time callback should not have run'),
+    arg: '20ms',
+    modifiers: {}
+  }, { props: {} })
+
+  directive.updated(el, {
+    value: (value) => {
+      assert.equal(value, 'hello')
+      done()
+    },
+    arg: '20ms',
+    modifiers: {}
+  }, { props: {} }, {})
+
+  el.fire('keyup', makeEvent('hello', 'o'))
+})
+
+test('updated applies a changed time argument to future calls', (t, done) => {
+  const directive = vueDebounce({})
+  const el = makeEl()
+  const start = Date.now()
+
+  directive.created(el, {
+    value: () => assert.fail('should not fire at the original 1s wait'),
+    arg: '1s',
+    modifiers: {}
+  }, { props: {} })
+
+  directive.updated(el, {
+    value: () => {
+      assert.ok(Date.now() - start < 500, 'fired using the new, shorter wait instead of the original 1s')
+      done()
+    },
+    arg: '30ms',
+    modifiers: {}
+  }, { props: {} }, {})
+
+  el.fire('keyup', makeEvent('hello', 'o'))
+})
+
+test('updated re-wires listeners when debounce-events changes', (t, done) => {
+  const directive = vueDebounce({ listenTo: 'keyup' })
+  const el = makeEl()
+
+  directive.created(el, {
+    value: () => {},
+    arg: '10ms',
+    modifiers: {}
+  }, { props: {} })
+
+  directive.updated(el, {
+    value: (value) => {
+      assert.equal(value, 'clicked')
+      done()
+    },
+    arg: '10ms',
+    modifiers: {}
+  }, { props: { 'debounce-events': 'click' } }, {})
+
+  assert.equal(el.listenerCount('keyup'), 0, 'old event listener removed')
+  assert.equal(el.listenerCount('click'), 1, 'new event listener attached')
+
+  el.fire('click', makeEvent('clicked'))
+})
+
 test('unmounted cancels any pending call and removes the event listeners', (t, done) => {
   const directive = vueDebounce({})
   const el = makeEl()
@@ -212,6 +282,36 @@ test('unmounted cancels any pending call and removes the event listeners', (t, d
 
   setTimeout(() => {
     assert.ok(!fired, 'pending debounce was cancelled on unmount')
+    done()
+  }, 60)
+})
+
+test('unmounted still cleans up correctly after an update changed the events/timer', (t, done) => {
+  const directive = vueDebounce({ listenTo: 'keyup' })
+  const el = makeEl()
+  let fired = false
+
+  directive.created(el, {
+    value: () => { fired = true },
+    arg: '10ms',
+    modifiers: {}
+  }, { props: {} })
+
+  directive.updated(el, {
+    value: () => { fired = true },
+    arg: '30ms',
+    modifiers: {}
+  }, { props: { 'debounce-events': 'click' } }, {})
+
+  el.fire('click', makeEvent('typed', 'd'))
+  assert.equal(el.listenerCount('click'), 1)
+
+  directive.unmounted(el)
+
+  assert.equal(el.listenerCount('click'), 0, 'listener removed')
+
+  setTimeout(() => {
+    assert.ok(!fired, 'pending debounce from after the update was still cancelled on unmount')
     done()
   }, 60)
 })
