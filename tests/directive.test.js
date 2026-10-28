@@ -100,6 +100,23 @@ test('trim option does not throw on an element without a value (e.g. listenTo: c
   })
 })
 
+test('delivers the raw event as the first argument on an element with no value (e.g. a div bound via debounce-events)', (t, done) => {
+  const directive = vueDebounce({ listenTo: 'keyup' })
+  const el = makeEl()
+  const fakeEvent = { key: undefined, metaKey: false, target: {} }
+
+  directive.created(el, {
+    value: (value) => {
+      assert.equal(value, fakeEvent, 'received the event itself instead of undefined')
+      done()
+    },
+    arg: '20ms',
+    modifiers: {}
+  }, { props: { 'debounce-events': 'click' } })
+
+  el.fire('click', fakeEvent)
+})
+
 test('Enter immediately fires the callback by default (unlocked)', (t, done) => {
   const directive = vueDebounce({})
   const el = makeEl()
