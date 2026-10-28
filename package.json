@@ -9,7 +9,7 @@
   "unpkg": "dist/vueDebounce.min.js",
   "jsdelivr": "dist/vueDebounce.min.js",
   "scripts": {
-    "test": "tape tests/test.js | tap-on",
+    "test": "tape tests/test.js tests/*.test.js | tap-on",
     "prepack": "npm run lint && npm run build",
     "build": "rollup -c",
     "watch": "rollup -c -w",
