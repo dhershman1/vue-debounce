@@ -28,6 +28,9 @@ interface Debounce {
 
 declare const debounce: Debounce
 declare const vueDebounce: (opts?: PluginConfig) => DirectiveObject
+// Same shape as debounce, but cancels any pending call when the component
+// calling it (from setup()) unmounts
+declare const useDebounce: Debounce
 
-export { debounce, vueDebounce, DebounceInstance }
+export { debounce, vueDebounce, useDebounce, DebounceInstance }
 export default vueDebounce
