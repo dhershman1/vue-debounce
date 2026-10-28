@@ -24,6 +24,7 @@ function filesize () {
 
 export default [{
   input: './src/index.js',
+  external: ['vue'],
   plugins: [
     babel({ babelHelpers: 'bundled' }),
     terser(),
@@ -33,6 +34,7 @@ export default [{
     format: 'umd',
     name: 'vueDebounce',
     exports: 'named',
+    globals: { vue: 'Vue' },
     file: 'dist/vue-debounce.min.js'
   }, {
     // .cjs extension so Node resolves this as CommonJS regardless of
@@ -40,6 +42,7 @@ export default [{
     format: 'umd',
     name: 'vueDebounce',
     exports: 'named',
+    globals: { vue: 'Vue' },
     file: 'dist/vue-debounce.cjs'
   }]
 }, {
