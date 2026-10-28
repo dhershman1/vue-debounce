@@ -22,26 +22,41 @@ export default function ({
         cancelonempty: cancelOnEmpty
       }, modifiers)
       const events = mapOutListeningEvents(vnode.props, listenTo)
-      const fn = debounce(e => {
-        debouncedFn(e.target.value, e)
+      const fn = debounce((value, e) => {
+        debouncedFn(value, e)
       }, timer)
 
       function handler (event) {
-        const value = combinedRules.trim ? event.target.value.trim() : event.target.value
+        const rawValue = event.target.value
+        const value = combinedRules.trim && typeof rawValue === 'string' ? rawValue.trim() : rawValue
 
         if (isEmpty(value) && combinedRules.cancelonempty) {
           fn.cancel()
         } else if (isLocked(event.key, combinedRules) || shouldFireOnEmpty(value, event.key, combinedRules)) {
           fn.cancel()
-          debouncedFn(event.target.value, event)
+          debouncedFn(value, event)
         } else {
-          fn(event)
+          fn(value, event)
         }
       }
 
       events.forEach(e => {
         el.addEventListener(e, handler)
       })
+
+      el._vueDebounceCleanup = () => {
+        fn.cancel()
+
+        events.forEach(e => {
+          el.removeEventListener(e, handler)
+        })
+      }
+    },
+    unmounted (el) {
+      if (el._vueDebounceCleanup) {
+        el._vueDebounceCleanup()
+        delete el._vueDebounceCleanup
+      }
     }
   }
 }
