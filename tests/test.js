@@ -52,50 +52,14 @@ test('Handles seconds', (t, done) => {
   runner('testing')
 })
 
-test('Inherits parent scope', (t, done) => {
-  const runner = function (val) {
-    const Someclass = function ($options) {
-      this.somevalue = ''
-      this.$options = $options
+test('does not forward a `this` context to the wrapped function', (t, done) => {
+  const ctx = { label: 'caller-context' }
+  const runner = debounce(function () {
+    assert.equal(this, undefined)
+    done()
+  }, '20ms')
 
-      this.bind = function (fn, ctx) {
-        return function (a) {
-          const l = arguments.length
-          return l
-            ? l > 1
-              ? fn.apply(ctx, arguments)
-              : fn.call(ctx, a)
-            : fn.call(ctx)
-        }
-      }
-
-      this._initMethods = function () {
-        const methods = this.$options.methods
-        if (methods) {
-          for (const key in methods) {
-            this[key] = this.bind(methods[key], this)
-          }
-        }
-      }
-
-      this._initMethods()
-    }
-
-    const vm = new Someclass({
-      methods: {
-        somefunction: debounce(function () {
-          assert.ok(val)
-          assert.equal(this.somevalue, 'testing')
-          done()
-        })
-      }
-    })
-
-    vm.somevalue = val
-    vm.somefunction()
-  }
-
-  runner('testing')
+  runner.call(ctx)
 })
 
 test('Collapses rapid calls into a single invocation', (t, done) => {

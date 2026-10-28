@@ -7,6 +7,7 @@
 - Changed how `fireonempty` decides when to fire immediately. It previously only triggered when the key that emptied the field was `Enter` or `Space`, so clearing an input with Backspace/Delete (the normal way) just fell through to the regular debounce wait instead of firing right away as documented
   - `fireonempty` now fires immediately whenever the value becomes empty, regardless of which key (or other event) caused it
   - Please open issues ASAP if this functionality is not working as expected
+- `debounce` no longer forwards the caller's `this` into the wrapped function. This was a holdover from Vue 2's Options API (`this.someMethod()`), which this package dropped support for back in v5.0.0, if you need a `this` context, bind it to your function yourself before passing it in
 
 ### Fixed
 

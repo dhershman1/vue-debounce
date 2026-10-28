@@ -25,15 +25,12 @@ function debounce (fn, wait) {
   let timeout = null
   const timer = typeof wait === 'number' ? wait : convertTime(wait)
 
-  const debounced = function (...args) {
-    const later = () => {
-      timeout = null
-
-      fn.apply(this, args)
-    }
-
+  const debounced = (...args) => {
     clearTimeout(timeout)
-    timeout = setTimeout(later, timer)
+    timeout = setTimeout(() => {
+      timeout = null
+      fn(...args)
+    }, timer)
   }
 
   debounced.cancel = () => {
