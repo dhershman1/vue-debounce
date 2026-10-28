@@ -34,6 +34,7 @@
 - Added test coverage for `_internals.js` and the directive itself, which previously had none
 - Modernized `types/index.d.ts` to use Vue's own `ObjectDirective`/`DirectiveBinding` generics instead of the `any` types left over, the bound callback, modifiers, and time argument are now properly typed
 - Added JSDoc comments to the exported functions and previously undocumented internals
+- Added a `Testing` section to the README covering how to stub the directive in component tests ([#55](https://github.com/dhershman1/vue-debounce/issues/55))
 
 ### Chores
 

@@ -28,6 +28,7 @@ This package is Vue 3 only as of v5.0.0. If you're on Vue 2, use [vue2-debounce]
 - [Modifier Usage](#modifier-usage)
 - [Overwriting Events](#overwriting-events)
 - [Typescript Support](#typescript-support)
+- [Testing](#testing)
 - [Caveats](#caveats)
 
 ## Features
@@ -268,6 +269,36 @@ createApp(App)
   .directive('debounce', vueDebounce(options))
   .mount('#app')
 ```
+
+## Testing
+
+Since the directive relies on real timers, the simplest way to test a component that uses it is to stub it out with a version that calls your function immediately instead of waiting:
+
+```js
+const debounceStub = {
+  created (el, binding) {
+    el.addEventListener('input', (event) => {
+      binding.value(event.target.value, event)
+    })
+  }
+}
+```
+
+Then swap it in via `@vue/test-utils`'s `global.directives` when mounting:
+
+```js
+import { mount } from '@vue/test-utils'
+
+mount(MyComponent, {
+  global: {
+    directives: {
+      debounce: debounceStub
+    }
+  }
+})
+```
+
+Your component fires on input immediately instead of waiting, so you can assert against it synchronously.
 
 ## Caveats
 
