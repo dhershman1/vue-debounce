@@ -1,10 +1,4 @@
-/*
- * TODO 12/1/2019 - It would be nice if we could add types to the modifiers and expected callback value of the directive but this does not seem to be possible right now.
- *
- * Both of the types are marked as any without any generic support so not much we can do. This might change in the future when Vue is actually written in typescript as per the road map for Vue 3 https://github.com/vuejs/roadmap#3x
- * "value" type - https://github.com/vuejs/vue/blob/fd0eaf92948bb5a4882d538362091fb287d642e3/types/vnode.d.ts#L70
- * "modifiers" type - https://github.com/vuejs/vue/blob/fd0eaf92948bb5a4882d538362091fb287d642e3/types/options.d.ts#L184
- */
+import type { ObjectDirective } from 'vue'
 
 export interface PluginConfig {
   lock?: boolean
@@ -15,9 +9,13 @@ export interface PluginConfig {
   trim?: boolean
 }
 
-interface DirectiveObject {
-  [key: string]: (el: HTMLElement, binding: any, vnode: any) => void
-}
+// The value bound to the directive, e.g. v-debounce:300ms="myFn"
+export type DebouncedCallback = (value: string, event: Event) => void
+
+// The modifiers vue-debounce understands, e.g. v-debounce:300ms.lock="myFn"
+export type Modifier = 'lock' | 'unlock' | 'fireonempty' | 'cancelonempty' | 'trim'
+
+export type DirectiveObject = ObjectDirective<HTMLElement, DebouncedCallback, Modifier, string>
 
 interface DebounceInstance<A extends unknown[]> {
   (...args: A): void | Promise<void>,
@@ -29,7 +27,7 @@ interface Debounce {
 }
 
 declare const debounce: Debounce
-declare const vueDebounce: (opts: PluginConfig) => DirectiveObject
+declare const vueDebounce: (opts?: PluginConfig) => DirectiveObject
 
-export { debounce, vueDebounce, DebounceInstance, DirectiveObject }
+export { debounce, vueDebounce, DebounceInstance }
 export default vueDebounce
