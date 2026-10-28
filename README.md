@@ -23,6 +23,7 @@ This package is Vue 3 only as of v5.0.0. If you're on Vue 2, use [vue2-debounce]
 - [CDN Support](#cdn-support)
 - [Setup](#setup)
 - [Using Just Debounce](#using-just-debounce)
+- [Using The Composable](#using-the-composable)
 - [Usage](#usage)
 - [Modifier Usage](#modifier-usage)
 - [Overwriting Events](#overwriting-events)
@@ -38,6 +39,7 @@ This package is Vue 3 only as of v5.0.0. If you're on Vue 2, use [vue2-debounce]
 - Enter key support to automatically fire the desired function when the user hits the enter key in the desired input (Can also be disabled)
 - Supports the ability to have multiple event listeners, and specify events at the element level
 - Reacts to changed bindings on re-render: a new bound function, time, or `debounce-events` takes effect instead of staying frozen to whatever was there at mount time
+- A `useDebounce` composable for the Composition API, which cancels any pending call automatically on unmount
 
 ## Installation
 ```
@@ -149,6 +151,26 @@ Note that `debounce` doesn't bind a `this` context to the function you pass it, 
 const dFn = debounce(myMethod.bind(this), '300ms')
 ```
 
+## Using The Composable
+
+If you're in the Composition API and want to debounce a function without the directive, `useDebounce` works just like `debounce`, but also cancels any pending call automatically when the component that created it unmounts:
+
+```js
+import { useDebounce } from 'vue-debounce'
+
+export default {
+  setup () {
+    const search = useDebounce(val => fetchResults(val), '300ms')
+
+    return { search }
+  }
+}
+```
+
+The same rule as `debounce` applies, call it once (in `setup()`) and reuse the function it returns. Avoid calling `useDebounce` fresh on every event, as this creates a fresh, unrelated debounce each time instead of collapsing calls.
+
+`useDebounce` has to be called during `setup()` (or a composable called from it) since it relies on Vue's `onUnmounted` hook, which only works within an active component.
+
 ## Usage
 
 Then attach a time:format to the directive, and set the value to the function you want to call and attach it to your input element
@@ -171,7 +193,7 @@ You can pass the time in multiple formats:
 <input v-debounce:1s="myFunc" type="text" />
 ```
 
-The value of the input is passed along to your function as the first parameter, and the 2nd parameter is the event object itself.
+The value of the input is passed along to your function as the first parameter, and the 2nd parameter is the event object itself. If the bound element has no `.value` (a button, a div, anything you're debouncing via `debounce-events` rather than an input) the event itself is passed as the first parameter instead, so callbacks get the raw event like `vue-router`'s `navigate`
 
 ## Modifier Usage
 
