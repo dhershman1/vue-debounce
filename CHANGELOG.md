@@ -2,6 +2,10 @@
 
 ## v6.0.0
 
+### New
+
+- Added a `useDebounce` composable for the Composition API. It works exactly like `debounce`, but cancels any pending call automatically when the component that created it unmounts ([#63](https://github.com/dhershman1/vue-debounce/issues/63))
+
 ### Breaking Changes
 
 - Changed how `fireonempty` decides when to fire immediately. It previously only triggered when the key that emptied the field was `Enter` or `Space`, so clearing an input with Backspace/Delete (the normal way) just fell through to the regular debounce wait instead of firing right away as documented
@@ -17,6 +21,7 @@
 - Added an `updated` hook so the directive picks up a new bound callback, time argument, or `debounce-events` on re-render, instead of freezing them at mount time
 - The `trim` option now actually trims the value handed to your callback. Previously it only affected the internal empty-value checks and always delivered the raw, untrimmed value
 - The `trim` option no longer throws when used on an element with no `.value` (e.g. `listenTo: 'click'` on a button)
+- An element with no `.value` now delivers the raw event as the first argument instead of `undefined`, fixing a crash when debouncing a callback that expects the event itself, e.g. `vue-router`'s `navigate` ([#70](https://github.com/dhershman1/vue-debounce/issues/70))
 - `unpkg`/`jsdelivr` pointed at `dist/vueDebounce.min.js`, this now correctly points to `dist/vue-debounce.min.js`
 - `main` pointed straight to a src file with no `exports` map, this broke with `require('vue-debounce')` because a proper CJS build wasn't being used
 
