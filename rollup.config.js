@@ -11,11 +11,19 @@ export default [{
       showMinifiedSize: false
     })
   ],
-  output: {
+  output: [{
     format: 'umd',
     name: 'vueDebounce',
+    exports: 'named',
     file: 'dist/vue-debounce.min.js'
-  }
+  }, {
+    // .cjs extension so Node resolves this as CommonJS regardless of
+    // the package's "type": "module", letting require() work correctly
+    format: 'umd',
+    name: 'vueDebounce',
+    exports: 'named',
+    file: 'dist/vue-debounce.cjs'
+  }]
 }, {
   input: './src/debounce.js',
   plugins: [
