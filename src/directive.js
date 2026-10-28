@@ -56,7 +56,11 @@ export default function ({
 
       function handler (event) {
         const rawValue = event.target.value
-        const value = combinedRules.trim && typeof rawValue === 'string' ? rawValue.trim() : rawValue
+        // Elements with no real value (a button, a div, anything bound via
+        // debounce-events on a non-input) fall back to the event itself
+        const value = typeof rawValue !== 'string'
+          ? event
+          : combinedRules.trim ? rawValue.trim() : rawValue
 
         if (isEmpty(value) && combinedRules.cancelonempty) {
           fn.cancel()
