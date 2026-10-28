@@ -96,3 +96,81 @@ test('Inherits parent scope', t => {
 
   runner('testing')
 })
+
+test('Collapses rapid calls into a single invocation', t => {
+  let calls = 0
+  const runner = debounce(() => {
+    calls++
+  }, '50ms')
+
+  runner()
+  runner()
+  runner()
+  runner()
+  runner()
+
+  setTimeout(() => {
+    t.same(calls, 1)
+    t.end()
+  }, 150)
+})
+
+test('Fires with the arguments of the last call (trailing edge)', t => {
+  const runner = debounce(val => {
+    t.same(val, 'last')
+    t.end()
+  }, '50ms')
+
+  runner('first')
+  runner('second')
+  runner('last')
+})
+
+test('cancel() prevents a pending invocation from firing', t => {
+  let fired = false
+  const runner = debounce(() => {
+    fired = true
+  }, '50ms')
+
+  runner()
+  runner.cancel()
+
+  setTimeout(() => {
+    t.same(fired, false)
+    t.end()
+  }, 100)
+})
+
+test('cancel() does not affect a later call', t => {
+  const runner = debounce(val => {
+    t.same(val, 'second')
+    t.end()
+  }, '50ms')
+
+  runner('first')
+  runner.cancel()
+  runner('second')
+})
+
+test('Time units are case-insensitive', t => {
+  let calls = 0
+  const start = Date.now()
+  const runner = debounce(() => {
+    calls++
+    t.same(calls, 1)
+    t.ok(Date.now() - start >= 90, 'waited roughly the configured time instead of firing immediately')
+    t.end()
+  }, '100MS')
+
+  runner()
+})
+
+test('Seconds unit is case-insensitive', t => {
+  const start = Date.now()
+  const runner = debounce(() => {
+    t.ok(Date.now() - start >= 90, 'waited roughly the configured time instead of firing immediately')
+    t.end()
+  }, '0.1S')
+
+  runner()
+})
