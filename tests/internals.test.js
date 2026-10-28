@@ -43,10 +43,8 @@ test('isLocked fires on Enter unless lock is set, and unlock overrides lock', ()
   assert.ok(!isLocked('a', { lock: false }))
 })
 
-test('shouldFireOnEmpty only applies to Enter/space on an emptied value', () => {
-  assert.ok(shouldFireOnEmpty('', 'Enter', { fireonempty: true }))
-  assert.ok(shouldFireOnEmpty('', ' ', { fireonempty: true }))
-  assert.ok(!shouldFireOnEmpty('', 'Backspace', { fireonempty: true }), 'clearing via Backspace is not currently covered')
-  assert.ok(!shouldFireOnEmpty('not empty', 'Enter', { fireonempty: true }))
-  assert.ok(!shouldFireOnEmpty('', 'Enter', { fireonempty: false }))
+test('shouldFireOnEmpty fires whenever the value is empty and fireonempty is enabled', () => {
+  assert.ok(shouldFireOnEmpty('', { fireonempty: true }))
+  assert.ok(!shouldFireOnEmpty('not empty', { fireonempty: true }), 'value is not actually empty')
+  assert.ok(!shouldFireOnEmpty('', { fireonempty: false }), 'fireonempty is disabled')
 })

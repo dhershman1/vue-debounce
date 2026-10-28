@@ -116,6 +116,23 @@ test('Enter immediately fires the callback by default (unlocked)', (t, done) => 
   el.fire('keyup', makeEvent('typed', 'Enter'))
 })
 
+test('fireonempty modifier fires immediately when the input is cleared via Backspace', (t, done) => {
+  const directive = vueDebounce({})
+  const el = makeEl()
+
+  directive.created(el, {
+    value: (value) => {
+      assert.equal(value, '')
+      done()
+    },
+    arg: '10s',
+    modifiers: { fireonempty: true }
+  }, { props: {} })
+
+  el.fire('keyup', makeEvent('typed', 't'))
+  el.fire('keyup', makeEvent('', 'Backspace'))
+})
+
 test('lock modifier prevents Enter from firing immediately', (t, done) => {
   const directive = vueDebounce({})
   const el = makeEl()
