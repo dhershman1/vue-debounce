@@ -47,6 +47,6 @@ export function isLocked (key, modifiers) {
   return key === 'Enter' && (!modifiers.lock || modifiers.unlock)
 }
 
-export function shouldFireOnEmpty (value, key, modifiers) {
-  return isEmpty(value) && modifiers.fireonempty && (key === 'Enter' || key === ' ')
+export function shouldFireOnEmpty (value, modifiers) {
+  return isEmpty(value) && modifiers.fireonempty
 }

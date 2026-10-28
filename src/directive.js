@@ -32,7 +32,7 @@ export default function ({
 
         if (isEmpty(value) && combinedRules.cancelonempty) {
           fn.cancel()
-        } else if (isLocked(event.key, combinedRules) || shouldFireOnEmpty(value, event.key, combinedRules)) {
+        } else if (isLocked(event.key, combinedRules) || shouldFireOnEmpty(value, combinedRules)) {
           fn.cancel()
           debouncedFn(value, event)
         } else {
