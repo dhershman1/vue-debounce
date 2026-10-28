@@ -22,7 +22,7 @@
     "types"
   ],
   "scripts": {
-    "test": "tape tests/test.js tests/*.test.js | tap-on",
+    "test": "node --test \"tests/**/*.js\"",
     "prepack": "npm run lint && npm run build",
     "build": "rollup -c",
     "watch": "rollup -c -w",
@@ -58,15 +58,12 @@
   },
   "homepage": "https://github.com/dhershman1/vue-debounce#readme",
   "devDependencies": {
-    "@babel/core": "7.23.5",
+    "@babel/core": "7.29.7",
     "@babel/preset-env": "7.23.5",
-    "@rollup/plugin-babel": "6.0.4",
-    "@rollup/plugin-terser": "0.4.4",
-    "rollup": "^4.6.1",
-    "rollup-plugin-filesize": "9.1.2",
-    "standard": "^17.1.0",
-    "tap-on": "0.3.1",
-    "tape": "^5.7.2"
+    "@rollup/plugin-babel": "7.1.0",
+    "@rollup/plugin-terser": "1.0.2",
+    "rollup": "4.66.0",
+    "standard": "17.1.2"
   },
   "peerDependencies": {
     "vue": ">= 3.0.0"
